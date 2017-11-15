@@ -1,0 +1,17 @@
+
+.bg-custom{background:linear-gradient(60deg, #B24592, #F15F79);}
+.back-to-top:hover,.btn-custom,.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover
+{
+  background-color: #F15F79 !important;
+}
+
+.navbar-custom{ background:transparent;}
+.is-sticky .navbar-custom{
+    background:linear-gradient(60deg, #B24592, #F15F79);
+    box-shadow:0 2px 2px rgba(0,0,0,0.05), 0 1px 0 rgba(0,0,0,0.05);
+}
+
+.text-custom,.features-box i,
+.pricing-column .plan-title {
+  color: #F15F79 !important;
+}

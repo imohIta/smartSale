@@ -1,0 +1,956 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<!-- Mirrored from thememakker.com/oakleaf-admin/ui-general.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 11 Jan 2017 21:57:07 GMT -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>:: Oakleaf - Admin Dashboard ::</title>
+<link rel="icon" type="image/ico" href="assets/images/favicon.ico" />
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="assets/css/vendor/animsition.min.css">
+<link rel="stylesheet" href="assets/js/vendor/datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="assets/css/main.css">
+
+</head>
+<body id="oakleaf" class="main_Wrapper">
+
+<!--  Application Content  -->
+<div id="wrap" class="animsition"> 
+    <!-- HEADER Content -->
+    <section id="header">
+        <header class="clearfix"> 
+            <!-- Branding -->
+            <div class="branding"> <a class="brand" href="index-2.html"><span>Oakleaf</span></a> <a role="button" tabindex="0" class="offcanvas-toggle visible-xs-inline"><i class="fa fa-bars"></i></a> </div>
+            <!-- Branding end --> 
+            
+            <!-- Left-side navigation -->
+            <ul class="nav-left pull-left list-unstyled list-inline">
+                <li class="leftmenu-collapse"><a role="button" tabindex="0" class="collapse-leftmenu"><i class="fa fa-arrow-circle-o-left"></i></a></li>
+            </ul>
+            <!-- Left-side navigation end --> 
+            
+            <!-- Search -->
+            <div class="search" id="main-search">
+                <input type="text" class="form-control underline-input" placeholder="Anything Ask ME...">
+            </div>
+            <!-- Search end --> 
+            
+            <!-- Right-side navigation -->
+            <ul class="nav-right pull-right list-inline">
+                <li class="dropdown nav-profile"> <a href class="dropdown-toggle" data-toggle="dropdown"> <img src="assets/images/profile-photo.jpg" alt="" class="0 size-30x30"></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <div class="user-info">
+                                <div class="user-name">Jonathan Smith</div>
+                                <div class="user-position online">Available</div>
+                            </div>
+                        </li>
+                        <li><a href="profile.html" role="button" tabindex="0"><span class="label label-success pull-right">80%</span><i class="fa fa-user"></i>Profile</a></li>
+                        <li><a role="button" tabindex="0"><span class="label label-info pull-right">new</span><i class="fa fa-check"></i>Tasks</a></li>
+                        <li> <a role="button" tabindex="0"><i class="fa fa-cog"></i>Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="locked.html" role="button" tabindex="0"><i class="fa fa-lock"></i>Lock</a></li>
+                        <li><a href="login.html" role="button" tabindex="0"><i class="fa fa-sign-out"></i>Logout</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown users"> <a href class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-th"></i> </a>
+                    <div class="dropdown-menu pull-right with-arrow panel panel-default" role="menu">
+                        <ul class="app-sortcut">
+                            <li> <a href="#" class="connection-item"> <i class="fa  fa-umbrella"></i> <span class="block">weather</span> </a> </li>
+                            <li> <a href="drive.html" class="connection-item"> <i class="fa fa-cloud-upload"></i> <span class="block">Drive</span> </a> </li>
+                            <li> <a href="calendar.html" class="connection-item"> <i class="fa fa-calendar-check-o"></i> <span class="block">calendar</span> </a> </li>
+                            <li> <a href="maps-google.html" class="connection-item"> <i class="fa fa-map-o"></i> <span class="block">map</span> </a> </li>
+                            <li> <a href="chat.html" class="connection-item"> <i class="fa fa-comments-o"></i> <span class="block">chat</span> </a> </li>
+                            <li> <a href="#" class="connection-item"> <i class="fa fa-book"></i> <span class="block">contact</span> </a> </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="dropdown messages"> <a href class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-envelope"></i>
+                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                    </a>
+                    <div class="dropdown-menu pull-right with-arrow panel panel-default" role="menu">
+                        <ul class="list-group">
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object thumb thumb-sm"> <img src="assets/images/pi-avatar.jpg" alt="" class=""> </span>
+                                <div class="media-body"> <span class="block">Lucas sent you a message</span> <small class="text-muted">9 minutes ago</small> </div>
+                                </a> </li>
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object  thumb thumb-sm"> <img src="assets/images/Jane-avatar.jpg" alt="" class=""> </span>
+                                <div class="media-body"> <span class="block">Jane sent you a message</span> <small class="text-muted">27 minutes ago</small> </div>
+                                </a> </li>
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object  thumb thumb-sm"> <img src="assets/images/random-avatar1.jpg" alt="" class=""> </span>
+                                <div class="media-body"> <span class="block">Lee sent you a message</span> <small class="text-muted">2 hour ago</small> </div>
+                                </a> </li>
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object  thumb thumb-sm"> <img src="assets/images/random-avatar3.jpg" alt="" class=""> </span>
+                                <div class="media-body"> <span class="block">Rihtik sent you a message</span> <small class="text-muted">8 hours ago</small> </div>
+                                </a> </li>
+                        </ul>
+                        <div class="panel-footer"> <a role="button" tabindex="0">Show all messages <i class="pull-right fa fa-angle-right"></i></a> </div>
+                    </div>
+                </li>
+                <li class="dropdown notifications"> <a href class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-bell"></i>
+                    <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
+                    </a>
+                    <div class="dropdown-menu pull-right with-arrow panel panel-default ">
+                        <ul class="list-group">
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object media-icon"> <i class="fa fa-ban"></i> </span>
+                                <div class="media-body"> <span class="block">User Lucas cancelled account</span> <small class="text-muted">12 minutes ago</small> </div>
+                                </a> </li>
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object media-icon"> <i class="fa fa-spotify"></i> </span>
+                                <div class="media-body"> <span class="block">2 voice mails</span> <small class="text-muted">Neque porro quisquam est</small> </div>
+                                </a> </li>
+                            <li class="list-group-item"> <a role="button" tabindex="0" class="media"> <span class="pull-left media-object media-icon"> <i class="fa fa-whatsapp"></i> </span>
+                                <div class="media-body"> <span class="block">8 voice messanger</span> <small class="text-muted">8 texts</small> </div>
+                                </a> </li>
+                        </ul>
+                        <div class="panel-footer"> <a role="button" tabindex="0">Show all notifications <i class="fa fa-angle-right pull-right"></i></a> </div>
+                    </div>
+                </li>
+                <li class="toggle-right-leftmenu"><a role="button" tabindex="0"><i class="fa fa-gear"></i></a></li>
+            </ul>
+            <!-- Right-side navigation end --> 
+        </header>
+    </section>
+    <!--/ HEADER Content  --> 
+    
+    <!--  CONTROLS Content -->
+    <div id="controls"> 
+        <!--SIDEBAR Content -->
+        <aside id="leftmenu">
+            <div id="leftmenu-wrap">
+                <div class="panel-group slim-scroll" role="tablist">
+                    <div class="panel panel-default">
+                        <div id="leftmenuNav" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body"> 
+                                <!--  NAVIGATION Content -->
+                                <ul id="navigation">
+                                    <li><a href="index-2.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                                    <li> <a role="button" tabindex="0"><i class="fa fa-envelope"></i> <span>Mail Box</span> <span class="badge bg-blue">6</span></a>
+                                        <ul>
+                                            <li><a href="mail-inbox.html"><i class="fa fa-angle-right"></i> Inbox <span class="label label-success">new</span></a></li>
+                                            <li><a href="mail-compose.html"><i class="fa fa-angle-right"></i> Compose Mail</a></li>
+                                            <li><a href="mail-single.html"><i class="fa fa-angle-right"></i> Single Mail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="material.html"><i class="fa fa-arrow-right"></i> <span>Material Elements</span></a></li>
+                                    <li> <a role="button" tabindex="0"><i class="fa fa-list"></i> <span>Form Elements</span></a>
+                                        <ul>
+                                            <li><a href="form-common.html"><i class="fa fa-angle-right"></i> Common Elements</a></li>
+                                            <li><a href="form-validate.html"><i class="fa fa-angle-right"></i> Validation Elements</a></li>
+                                            <li><a href="form-wizard.html"><i class="fa fa-angle-right"></i> Form Wizard <span class="badge br-10 badge-success">13</span></a></li>
+                                            <li><a href="form-upload.html"><i class="fa fa-angle-right"></i> File Upload</a></li>
+                                            <li><a href="form-imgcrop.html"><i class="fa fa-angle-right"></i> Image Crop</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="active open"> <a role="button" tabindex="0"><i class="fa fa-leaf"></i> <span>Oakleaf UI Kit</span></a>
+                                        <ul>
+                                            <li class="active"><a href="ui-general.html"><i class="fa fa-angle-right"></i>General Elements</a></li>
+                                            <li><a href="ui-navigation.html"><i class="fa fa-angle-right"></i>Navigation & Accordions</a></li>
+                                            <li><a href="ui-widgets.html"><i class="fa fa-angle-right"></i>Widgets</a></li>
+                                            
+                                            <li><a href="ui-lists.html"><i class="fa fa-angle-right"></i>Lists</a></li>
+                                            <li><a href="ui-modals.html"><i class="fa fa-angle-right"></i>Modals</a></li>
+                                            <li><a href="ui-icons.html"><i class="fa fa-angle-right"></i>Icons</a></li>
+                                            <li><a href="ui-typography.html"><i class="fa fa-angle-right"></i>Typography</a></li>
+                                            <li><a href="ui-boxss.html"><i class="fa fa-angle-right"></i>boxss</a></li>
+                                            <li><a href="ui-portlets.html"><i class="fa fa-angle-right"></i>Portlets</a></li>
+                                            <li><a href="ui-grid.html"><i class="fa fa-angle-right"></i>Grid</a></li>
+                                            <li><a href="ui-alerts.html"><i class="fa fa-angle-right"></i>Alerts & Notifications</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="charts.html"><i class="fa fa-bar-chart-o"></i> <span>Charts</span></a></li>
+                                    <li> <a role="button" tabindex="0"><i class="fa fa-delicious"></i> <span>Layouts Format</span></a>
+                                        <ul>
+                                            <li><a href="layout-boxed.html"><i class="fa fa-angle-right"></i> Boxed layout</a></li>
+                                            <li><a href="layout-fullwidth.html"><i class="fa fa-angle-right"></i> Full-width layout <span class="label  label-success">new</span></a></li>
+                                            <li><a href="layout-leftmenu-sm.html"><i class="fa fa-angle-right"></i> Small leftmenu</a></li>
+                                            <li><a href="layout-leftmenu-xs.html"><i class="fa fa-angle-right"></i> Extra-small leftmenu</a></li>
+                                            <li><a href="layout-offcanvas.html"><i class="fa fa-angle-right"></i> Off-canvas leftmenu</a></li>
+                                            <li><a href="layout-rtl.html"><i class="fa fa-angle-right"></i> RTL layout</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a role="button" tabindex="0"><i class="fa fa-table"></i> <span>Tables</span></a>
+                                        <ul>
+                                            <li><a href="tables-bootstrap.html"><i class="fa fa-angle-right"></i> Bootstrap Tables</a></li>
+                                            <li><a href="tables-static.html"><i class="fa fa-angle-right"></i>Static Tables</a></li>
+                                            <li><a href="tables-footable.html"><i class="fa fa-angle-right"></i> FooTable</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a role="button" tabindex="0"><i class="fa fa-map-o"></i> <span>Maps</span></a>
+                                        <ul>
+                                            <li><a href="maps-vector.html"><i class="fa fa-angle-right"></i> Vector Maps</a></li>
+                                            <li><a href="maps-google.html"><i class="fa fa-angle-right"></i> Google Maps</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a role="button" tabindex="0"><i class="fa fa-lock"></i> <span>Authentication</span></a>
+                                        <ul>
+                                            <li><a href="login.html"><i class="fa fa-angle-right"></i> Login Page</a></li>
+                                            <li><a href="signup.html"><i class="fa fa-angle-right"></i> Signup Page</a></li>
+                                            <li><a href="forgotpass.html"><i class="fa fa-angle-right"></i> Forgot Password Page</a></li>
+                                            <li><a href="page-offline.html"><i class="fa fa-angle-right"></i> Page Offline</a></li>
+                                            <li><a href="locked.html"><i class="fa fa-angle-right"></i> Locked Screen</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a role="button" tabindex="0"><i class="fa fa-desktop"></i> <span>Extra Pages</span></a>
+                                        <ul>
+                                            <li><a href="page404.html"><i class="fa fa-angle-right"></i> Page 404</a></li>
+                                            <li><a href="page500.html"><i class="fa fa-angle-right"></i> Page 500</a></li>
+                                            <li><a href="gallery.html"><i class="fa fa-angle-right"></i> Gallery</a></li>
+                                            <li><a href="timeline.html"><i class="fa fa-angle-right"></i> Timeline</a></li>
+                                            <li><a href="chat.html"><i class="fa fa-angle-right"></i> Chat</a></li>
+                                            <li><a href="invoices.html"><i class="fa fa-angle-right"></i> Invoices</a></li>
+                                            <li><a href="search-results.html"><i class="fa fa-angle-right"></i> Search Results</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="drive.html"><i class="fa fa-cloud-upload"></i> <span>Drive</span></a></li>
+                                    <li><a href="profile.html"><i class="fa fa-user"></i> <span>User Profile</span></a></li>
+                                    <li><a href="landing-page.html"><i class="fa fa-star"></i> <span>Landing Page</span></a></li>
+                                    <li><a href="calendar.html"><i class="fa fa-calendar-check-o"></i> <span>Calendar</span> <span class="label label-primary">new events</span></a></li>
+                                    <li> <a role="button" tabindex="0"><i class="fa fa-magic"></i> <span>Menu Levels</span></a>
+                                        <ul>
+                                            <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 1.1</a>
+                                                <ul>
+                                                    <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 2.1</a></li>
+                                                    <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 2.2</a></li>
+                                                    <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 2.3</a>
+                                                        <ul>
+                                                            <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 3.1</a></li>
+                                                            <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 3.2</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 1.2</a>
+                                                <ul>
+                                                    <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 2.1</a>
+                                                        <ul>
+                                                            <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 3.1</a></li>
+                                                            <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 3.2</a>
+                                                                <ul>
+                                                                    <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 4.1</a></li>
+                                                                    <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 4.2</a></li>
+                                                                </ul>
+                                                            </li>
+                                                            <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 3.3</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Menu Level 2.2</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <!--/ NAVIGATION Content --> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel settings panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title"><a data-toggle="collapse" href="#leftmenuControls">General Settings <i class="fa fa-angle-up"></i></a></h4>
+                        </div>
+                        <div id="leftmenuControls" class="panel-collapse collapse in" role="tabpanel">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-xs-8">Switch ON</label>
+                                        <div class="col-xs-4 control-label">
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox" checked="">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-xs-8">Switch OFF</label>
+                                        <div class="col-xs-4 control-label">
+                                            <div class="togglebutton">
+                                                <label>
+                                                    <input type="checkbox" unchecked="">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="milestone-sidbar">
+                            <div class="text-center-folded"> <span class="pull-right pull-none-folded">60%</span> <span class="hidden-folded">Milestone</span> </div>
+                            <div class="progress progress-xxs m-t-sm dk">
+                                <div class="progress-bar progress-bar-info" style="width: 60%;"> </div>
+                            </div>
+                            <div class="text-center-folded"> <span class="pull-right pull-none-folded">35%</span> <span class="hidden-folded">Release</span> </div>
+                            <div class="progress progress-xxs m-t-sm dk">
+                                <div class="progress-bar progress-bar-primary" style="width: 35%;"> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!--/ SIDEBAR Content --> 
+        
+        <!--RIGHTBAR Content -->
+        <aside id="rightmenu">
+            <div role="tabpanel"> 
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#chat" aria-controls="chat" role="tab" data-toggle="tab">Chat</a></li>
+                    <li role="presentation"><a href="#todo" aria-controls="todo" role="tab" data-toggle="tab">Todo</a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="chat">
+                        <div class="search">
+                            <div class="form-group is-empty">
+                                <input type="text" class="form-control underline-input" placeholder="Search...">
+                                <span class="material-input"></span></div>
+                        </div>
+                        <h6>Recent</h6>
+                        <ul>
+                            <li class="online">
+                                <div class="media"> <a class="pull-left thumb thumb-sm" role="button" tabindex="0"> <img class="media-object " src="assets/images/pi-avatar.jpg" alt=""> </a>
+                                    <div class="media-body"> <span class="name">Claire Sassu</span> <span class="message">Can you share the...</span> <span class="badge badge-outline status"></span> </div>
+                                </div>
+                            </li>
+                            <li class="online">
+                                <div class="media"> <a class="pull-left thumb thumb-sm" role="button" tabindex="0"> <img class="media-object " src="assets/images/John-avatar.jpg" alt=""> </a>
+                                    <div class="media-body">
+                                        <div class="media-body"> <span class="name">Maggie jackson</span> <span class="message">Can you share the...</span> <span class="badge badge-outline status"></span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="online">
+                                <div class="media"> <a class="pull-left thumb thumb-sm" role="button" tabindex="0"> <img class="media-object " src="assets/images/Jane-avatar.jpg" alt=""> </a>
+                                    <div class="media-body">
+                                        <div class="media-body"> <span class="name">Joel King</span> <span class="message">Ready for the meeti...</span> <span class="badge badge-outline status"></span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <h6>Contacts</h6>
+                        <ul>
+                            <li class="offline">
+                                <div class="media"> <a class="pull-left thumb thumb-sm" role="button" tabindex="0"> <img class="media-object " src="assets/images/random-avatar4.jpg" alt=""> </a>
+                                    <div class="media-body">
+                                        <div class="media-body"> <span class="name">Joel King</span> <span class="badge badge-outline status"></span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="online">
+                                <div class="media"> <a class="pull-left thumb thumb-sm" role="button" tabindex="0"> <img class="media-object " src="assets/images/random-avatar5.jpg" alt=""> </a>
+                                    <div class="media-body">
+                                        <div class="media-body"> <span class="name">Joel King</span> <span class="badge badge-outline status"></span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="offline">
+                                <div class="media"> <a class="pull-left thumb thumb-sm" role="button" tabindex="0"> <img class="media-object " src="assets/images/random-avatar6.jpg" alt=""> </a>
+                                    <div class="media-body">
+                                        <div class="media-body"> <span class="name">Joel King</span> <span class="badge badge-outline status"></span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="todo">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Create new task..." class="form-control" />
+                            <span class="fa fa-plus"></span> </div>
+                        <h6>Today</h6>
+                        <ul class="todo-list">
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes">
+                                        Initialize the project</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes">
+                                        Create the main structure</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes">
+                                        Create the main structure</label>
+                                </div>
+                            </li>
+                        </ul>
+                        <h6>Tomorrow</h6>
+                        <ul class="todo-list">
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes">
+                                        Initialize the project</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes">
+                                        Create the main structure</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="optionsCheckboxes">
+                                        displayed in a normal space!</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="settings">
+                        <h6>Chat Settings</h6>
+                        <ul class="settings">
+                            <li>
+                                <div class="form-group">
+                                    <label class="col-xs-8 control-label">Show Offline Users</label>
+                                    <div class="col-xs-4 control-label text-right">
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" checked="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label class="col-xs-8 control-label">Show Fullname</label>
+                                    <div class="col-xs-4 control-label text-right">
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" unchecked="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label class="col-xs-8 control-label">History Enable</label>
+                                    <div class="col-xs-4 control-label text-right">
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" checked="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label class="col-xs-8 control-label">Show Locations</label>
+                                    <div class="col-xs-4 control-label text-right">
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" checked="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label class="col-xs-8 control-label">Notifications</label>
+                                    <div class="col-xs-4 control-label text-right">
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" unchecked="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-group">
+                                    <label class="col-xs-8 control-label">Show Undread Count</label>
+                                    <div class="col-xs-4 control-label text-right">
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" unchecked="">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!--/ RIGHTBAR Content --> 
+    </div>
+    <!--/ CONTROLS Content --> 
+    
+    <!--  CONTENT  -->
+    <section id="content">
+        <div class="page page-ui-general">
+            
+            <!-- bradcome -->
+            <div class="bg-light lter b-b wrapper-md mb-10">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <h1 class="font-thin h3 m-0">General Elements</h1>
+                        <small class="text-muted">Welcome to Oakleaf application</small> </div>
+                </div>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <section class="boxs">
+                        <div class="boxs-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Bootstrap Carousel</strong></h1>
+                            
+                        </div>
+                        <!-- /boxs header --> 
+                        <!-- boxs body -->
+                        <div class="boxs-body">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2" class="active"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item"> <img src="assets/images/puppy-1.jpg" data-holder-rendered="true"> </div>
+                                    <div class="item"> <img src="assets/images/puppy-2.jpg" data-holder-rendered="true"> </div>
+                                    <div class="item active"> <img src="assets/images/puppy-3.jpg" data-holder-rendered="true"> </div>
+                                </div>
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a> </div>
+                        </div>
+                        <!-- /boxs body --> 
+                    </section>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <section class="boxs">
+                        <div class="boxs-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Datepicker</strong></h1>
+                            
+                        </div>
+                        <div class="boxs-body">                            
+                            <div id="datepicker-inline" class="w-280"></div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Popup</label>
+                                    <div class="input-group date" id="datetimepicker1">
+                                        <input type="text" class="form-control" />
+                                        <span class="input-group-addon"> <span class="fa fa-calendar"></span> </span> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="boxs">
+                        <div class="boxs-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Bootstrap Progress</strong> Bars</h1>
+                            
+                        </div>
+                        <div class="boxs-body">
+                            <h4 class="custom-font"><strong>Basic</strong> Progress Bars</h4>
+                            <div class="progress progress-transparent-black">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"> <span class="sr-only">80% Complete</span> </div>
+                            </div>
+                            <h4 class="custom-font"><strong>Striped</strong> Progress Bars</h4>
+                            <div class="progress progress-striped">
+                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete</span> </div>
+                            </div>
+                            <div class="progress progress-striped">
+                                <div class="progress-bar progress-bar-cyan" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
+                            </div>
+                            <h4 class="custom-font"><strong>Animated</strong> Progress Bars</h4>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-orange" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete</span> </div>
+                            </div>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-red" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
+                            </div>
+                            <h4 class="custom-font"><strong>Stacked</strong> Progress Bar</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-amethyst" style="width: 35%"> <span class="sr-only">35% Complete</span> </div>
+                                <div class="progress-bar progress-bar-greensea" style="width: 20%"> <span class="sr-only">20% Complete</span> </div>
+                                <div class="progress-bar progress-bar-dutch" style="width: 10%"> <span class="sr-only">10% Complete</span> </div>
+                            </div>
+                            <h4 class="custom-font"><strong>Other</strong> Variations</h4>
+                            <div>
+                                <div class="progress-info">
+                                    <div class="desc"><code>class="progress progress-striped progress-sm"</code> </div>
+                                </div>
+                                <div class="progress progress-striped progress-sm">
+                                    <div class="progress-bar progress-bar-hotpink" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%"> <span class="sr-only">25% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="progress-info">
+                                    <div class="desc"><code>class="progress progress-striped progress-xs"</code> </div>
+                                </div>
+                                <div class="progress progress-striped progress-xs">
+                                    <div class="progress-bar progress-bar-drank" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="progress-info">
+                                    <div class="desc"><code>class="progress progress-striped progress-sm not-rounded"</code> </div>
+                                </div>
+                                <div class="progress progress-striped progress-sm not-rounded">
+                                    <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%"> <span class="sr-only">60% Complete</span> </div>
+                                </div>
+                            </div>
+                            <div class="progress-list">
+                                <div class="details">
+                                    <div class="title"><strong>Value</strong> in container</div>
+                                    <div class="description">animated progress bar load</div>
+                                </div>
+                                <div class="status pull-right"> <span class="counter" data-from="0" data-to="40" data-speed="1000"></span>% </div>
+                                <div class="clearfix"></div>
+                                <div class="progress progress-xs no-radius">
+                                    <div class="progress-bar progress-bar-orange animate-progress-bar" data-percentage="40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>                    
+                </div>
+                <div class="col-md-6">
+                    <section class="boxs">
+                        <div class="boxs-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Tooltip</strong></h1>
+                            
+                        </div>
+                        <div class="boxs-body">
+                            <button type="button" class="btn btn-raised btn-default btn-sm" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Tooltip on left</button>
+                            <button type="button" class="btn btn-raised btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Tooltip on top</button>
+                            <button type="button" class="btn btn-raised btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+                            <button type="button" class="btn btn-raised btn-default btn-sm" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Tooltip on right</button>
+                            <p class="text-muted mt-10">Lorem Ipsum is simply dummy text of the<a href="#" data-toggle="tooltip" data-placement="left" title="On the Left!">left</a> printing and typesetting<a href="#" data-toggle="tooltip" data-placement="right" title="On the Right!">right</a> industry. Lorem<a href="#" data-toggle="tooltip" data-placement="bottom" title="On the Bottom!">bottom</a> Ipsum has been the industry's standard dummy text ever since the 1500s, when an<a href="#" data-toggle="tooltip" data-animation="false" title="I don't fade. :-(">fading</a> unknown printer took a<a href="#" data-toggle="tooltip" data-delay="1000" title="appears with delay">delayed</a> galley of type and scrambled it to make a type specimen book.</p>                            
+                            <p> I can even contain HTML. <a href="#" data-toggle="tooltip" data-html="true" title="I've been made <strong>bold!</strong>">Check me out!</a> </p>
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Or use custom triggers, like focus: </label>
+                                    <input type="text" data-toggle="tooltip" value="Click me!" title="See? Now click away..." data-trigger="focus" data-placement="top" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                    <section class="boxs">
+                        <div class="boxs-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Ratings</strong></h1>
+                            
+                        </div>
+                        <div class="boxs-body">
+                            <label class="block">Default style : </label>
+                            <div id="raty1" class="inline-block"></div>
+                            <span id="hint" class="label label-success"></span> <br/>
+                            <label>Read only : </label>
+                            <div id="raty4"></div>
+                            <label>With cancel : </label>
+                            <div id="raty5"></div>
+                            <hr />
+                            <h4 class="custom-font"><strong>Custom</strong> Icons</h4>
+                            <div id="raty2" class="text-lg inline-block"></div>
+                            <strong>(<span id="hint2"></span>)</strong> <br/>
+                            <div id="raty3" class="inline-block"></div>
+                            <strong>(Bugs: <span id="hint3"></span>)</strong> </div>
+                        <!-- /boxs body --> 
+                    </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="boxs">
+                        <div class="boxs-header dvd dvd-btm">
+                            <h1 class="custom-font"><strong>Typeahead</strong></h1>
+                            
+                        </div>
+                        <div class="boxs-body">
+                            <h4 class="custom-font"><strong>Static</strong> arrays</h4>
+                            <input type="text" class="typeahead form-control" id="basicTypeahead" placeholder="States of USA">                           
+                            <h4 class="custom-font"><strong>Custom</strong> Template</h4>
+                            <input type="text" class="typeahead form-control" id="customTypeahead" placeholder="States of USA">
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- /row --> 
+        </div>
+    </section>
+    <!--/ CONTENT --> 
+</div>
+<!--/ Application Content --> 
+
+<!--  Vendor JavaScripts --> 
+<script src="assets/bundles/libscripts.bundle.js"></script>
+
+<script src="assets/bundles/vendorscripts.bundle.js"></script>
+
+<script src="assets/js/vendor/countTo/jquery.countTo.js"></script> 
+<script src="assets/js/vendor/daterangepicker/moment.min.js"></script> 
+<script src="assets/js/vendor/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> 
+<script src="assets/js/vendor/raty-fa/jquery.raty-fa.js"></script> 
+<script src="assets/js/vendor/typeahead/typeahead.bundle.min.js"></script> 
+<script src="assets/js/vendor/handlebars/handlebars-v3.0.3.js"></script> 
+<!--/ vendor javascripts --> 
+
+<!--  Custom JavaScripts  --> 
+<script src="assets/js/main.js"></script> 
+<!--/ custom javascripts --> 
+
+<!--  Page Specific Scripts --> 
+<script type="text/javascript">
+	$(window).load(function() {
+		$('#datepicker-inline').datetimepicker({
+			inline: true
+		});
+		$('#datetimepicker1').datetimepicker();
+		$('#raty1').raty({
+			number: 10,
+			target: '#hint',
+			targetType: 'number'
+		});
+		$('#raty2').raty({
+			score: 3,
+			starOff: 'fa fa-star-o text-orange',
+			starOn: 'fa fa-star text-orange',
+			target: '#hint2',
+			targetType: 'number',
+			targetKeep: true
+		});
+		$('#raty3').raty({
+			score: 10,
+			number: 15,
+			starOff: 'fa fa-bug',
+			starOn: 'fa fa-bug text-cyan',
+			target: '#hint3',
+			targetType: 'number',
+			targetKeep: true
+		});
+		$('#raty4').raty({
+			readOnly: true,
+			score: 2
+		});
+		$('#raty5').raty({
+			cancel: true,
+			score: 4
+		});
+		var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+		// constructs the suggestion engine
+		var states = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.whitespace,
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			// `states` is an array of state names defined in "The Basics"
+			local: states
+		});
+		$('#basicTypeahead').typeahead({
+			hint: true,
+			highlight: true,
+			minLength: 1
+		}, {
+			name: 'states',
+			source: states
+		});
+		var countries = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.whitespace,
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			// url points to a json file that contains an array of country names, see
+			// https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+			prefetch: 'assets/extras/countries.json'
+		});
+		// passing in `null` for the `options` arguments will result in the default
+		// options being used
+		$('#jsonTypeahead').typeahead(null, {
+			name: 'countries',
+			source: countries
+		});
+		var usStates = [{
+			'name': 'Alabama',
+			'flag': '5/5c/Flag_of_Alabama.svg/45px-Flag_of_Alabama.svg.png'
+		}, {
+			'name': 'Alaska',
+			'flag': 'e/e6/Flag_of_Alaska.svg/43px-Flag_of_Alaska.svg.png'
+		}, {
+			'name': 'Arizona',
+			'flag': '9/9d/Flag_of_Arizona.svg/45px-Flag_of_Arizona.svg.png'
+		}, {
+			'name': 'Arkansas',
+			'flag': '9/9d/Flag_of_Arkansas.svg/45px-Flag_of_Arkansas.svg.png'
+		}, {
+			'name': 'California',
+			'flag': '0/01/Flag_of_California.svg/45px-Flag_of_California.svg.png'
+		}, {
+			'name': 'Colorado',
+			'flag': '4/46/Flag_of_Colorado.svg/45px-Flag_of_Colorado.svg.png'
+		}, {
+			'name': 'Connecticut',
+			'flag': '9/96/Flag_of_Connecticut.svg/39px-Flag_of_Connecticut.svg.png'
+		}, {
+			'name': 'Delaware',
+			'flag': 'c/c6/Flag_of_Delaware.svg/45px-Flag_of_Delaware.svg.png'
+		}, {
+			'name': 'Florida',
+			'flag': 'f/f7/Flag_of_Florida.svg/45px-Flag_of_Florida.svg.png'
+		}, {
+			'name': 'Georgia',
+			'flag': '5/54/Flag_of_Georgia_%28U.S._state%29.svg/46px-Flag_of_Georgia_%28U.S._state%29.svg.png'
+		}, {
+			'name': 'Hawaii',
+			'flag': 'e/ef/Flag_of_Hawaii.svg/46px-Flag_of_Hawaii.svg.png'
+		}, {
+			'name': 'Idaho',
+			'flag': 'a/a4/Flag_of_Idaho.svg/38px-Flag_of_Idaho.svg.png'
+		}, {
+			'name': 'Illinois',
+			'flag': '0/01/Flag_of_Illinois.svg/46px-Flag_of_Illinois.svg.png'
+		}, {
+			'name': 'Indiana',
+			'flag': 'a/ac/Flag_of_Indiana.svg/45px-Flag_of_Indiana.svg.png'
+		}, {
+			'name': 'Iowa',
+			'flag': 'a/aa/Flag_of_Iowa.svg/44px-Flag_of_Iowa.svg.png'
+		}, {
+			'name': 'Kansas',
+			'flag': 'd/da/Flag_of_Kansas.svg/46px-Flag_of_Kansas.svg.png'
+		}, {
+			'name': 'Kentucky',
+			'flag': '8/8d/Flag_of_Kentucky.svg/46px-Flag_of_Kentucky.svg.png'
+		}, {
+			'name': 'Louisiana',
+			'flag': 'e/e0/Flag_of_Louisiana.svg/46px-Flag_of_Louisiana.svg.png'
+		}, {
+			'name': 'Maine',
+			'flag': '3/35/Flag_of_Maine.svg/45px-Flag_of_Maine.svg.png'
+		}, {
+			'name': 'Maryland',
+			'flag': 'a/a0/Flag_of_Maryland.svg/45px-Flag_of_Maryland.svg.png'
+		}, {
+			'name': 'Massachusetts',
+			'flag': 'f/f2/Flag_of_Massachusetts.svg/46px-Flag_of_Massachusetts.svg.png'
+		}, {
+			'name': 'Michigan',
+			'flag': 'b/b5/Flag_of_Michigan.svg/45px-Flag_of_Michigan.svg.png'
+		}, {
+			'name': 'Minnesota',
+			'flag': 'b/b9/Flag_of_Minnesota.svg/46px-Flag_of_Minnesota.svg.png'
+		}, {
+			'name': 'Mississippi',
+			'flag': '4/42/Flag_of_Mississippi.svg/45px-Flag_of_Mississippi.svg.png'
+		}, {
+			'name': 'Missouri',
+			'flag': '5/5a/Flag_of_Missouri.svg/46px-Flag_of_Missouri.svg.png'
+		}, {
+			'name': 'Montana',
+			'flag': 'c/cb/Flag_of_Montana.svg/45px-Flag_of_Montana.svg.png'
+		}, {
+			'name': 'Nebraska',
+			'flag': '4/4d/Flag_of_Nebraska.svg/46px-Flag_of_Nebraska.svg.png'
+		}, {
+			'name': 'Nevada',
+			'flag': 'f/f1/Flag_of_Nevada.svg/45px-Flag_of_Nevada.svg.png'
+		}, {
+			'name': 'New Hampshire',
+			'flag': '2/28/Flag_of_New_Hampshire.svg/45px-Flag_of_New_Hampshire.svg.png'
+		}, {
+			'name': 'New Jersey',
+			'flag': '9/92/Flag_of_New_Jersey.svg/45px-Flag_of_New_Jersey.svg.png'
+		}, {
+			'name': 'New Mexico',
+			'flag': 'c/c3/Flag_of_New_Mexico.svg/45px-Flag_of_New_Mexico.svg.png'
+		}, {
+			'name': 'New York',
+			'flag': '1/1a/Flag_of_New_York.svg/46px-Flag_of_New_York.svg.png'
+		}, {
+			'name': 'North Carolina',
+			'flag': 'b/bb/Flag_of_North_Carolina.svg/45px-Flag_of_North_Carolina.svg.png'
+		}, {
+			'name': 'North Dakota',
+			'flag': 'e/ee/Flag_of_North_Dakota.svg/38px-Flag_of_North_Dakota.svg.png'
+		}, {
+			'name': 'Ohio',
+			'flag': '4/4c/Flag_of_Ohio.svg/46px-Flag_of_Ohio.svg.png'
+		}, {
+			'name': 'Oklahoma',
+			'flag': '6/6e/Flag_of_Oklahoma.svg/45px-Flag_of_Oklahoma.svg.png'
+		}, {
+			'name': 'Oregon',
+			'flag': 'b/b9/Flag_of_Oregon.svg/46px-Flag_of_Oregon.svg.png'
+		}, {
+			'name': 'Pennsylvania',
+			'flag': 'f/f7/Flag_of_Pennsylvania.svg/45px-Flag_of_Pennsylvania.svg.png'
+		}, {
+			'name': 'Rhode Island',
+			'flag': 'f/f3/Flag_of_Rhode_Island.svg/32px-Flag_of_Rhode_Island.svg.png'
+		}, {
+			'name': 'South Carolina',
+			'flag': '6/69/Flag_of_South_Carolina.svg/45px-Flag_of_South_Carolina.svg.png'
+		}, {
+			'name': 'South Dakota',
+			'flag': '1/1a/Flag_of_South_Dakota.svg/46px-Flag_of_South_Dakota.svg.png'
+		}, {
+			'name': 'Tennessee',
+			'flag': '9/9e/Flag_of_Tennessee.svg/46px-Flag_of_Tennessee.svg.png'
+		}, {
+			'name': 'Texas',
+			'flag': 'f/f7/Flag_of_Texas.svg/45px-Flag_of_Texas.svg.png'
+		}, {
+			'name': 'Utah',
+			'flag': 'f/f6/Flag_of_Utah.svg/45px-Flag_of_Utah.svg.png'
+		}, {
+			'name': 'Vermont',
+			'flag': '4/49/Flag_of_Vermont.svg/46px-Flag_of_Vermont.svg.png'
+		}, {
+			'name': 'Virginia',
+			'flag': '4/47/Flag_of_Virginia.svg/44px-Flag_of_Virginia.svg.png'
+		}, {
+			'name': 'Washington',
+			'flag': '5/54/Flag_of_Washington.svg/46px-Flag_of_Washington.svg.png'
+		}, {
+			'name': 'West Virginia',
+			'flag': '2/22/Flag_of_West_Virginia.svg/46px-Flag_of_West_Virginia.svg.png'
+		}, {
+			'name': 'Wisconsin',
+			'flag': '2/22/Flag_of_Wisconsin.svg/45px-Flag_of_Wisconsin.svg.png'
+		}, {
+			'name': 'Wyoming',
+			'flag': 'b/bc/Flag_of_Wyoming.svg/43px-Flag_of_Wyoming.svg.png'
+		}];
+		// constructs the suggestion engine
+		var usStates = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			// `states` is an array of state names defined in "The Basics"
+			local: usStates
+		});
+		$('#customTypeahead').typeahead(null, {
+			name: 'us-states',
+			display: 'name',
+			source: usStates,
+			templates: {
+				empty: ['<div class="empty-message">', 'unable to find any US States that match the current query', '</div>'].join('\n'),
+				suggestion: Handlebars.compile('<div><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{flag}}" width="16" class="mr-10"><strong>{{name}}</strong></div>')
+			}
+		});
+	});
+</script> 
+<!--/ Page Specific Scripts --> 
+</body>
+
+<!-- Mirrored from thememakker.com/oakleaf-admin/ui-general.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 11 Jan 2017 21:57:15 GMT -->
+</html>

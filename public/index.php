@@ -34,7 +34,7 @@ require_once PATH . '/core/libs/session.class.php';
 # Create Session Object
 $session = new core\libs\Session(array(
 								'name' => $registry->get('config')->get('appTitle'),
-								'domain' => 'localhost',
+								//'domain' => 'localhost',
 								'httponly' => true
 							));
 $session->start();

@@ -208,6 +208,19 @@ class Sales extends FuniObject
 		return $registry->get('db')->query('select * from sales where codeNo in ( select codeNo from stockCard where groupId = :categoryId ) and date between :beginDate and :endDate', array('categoryId' => $data['categoryId'], 'beginDate' => $data['beginDate'], 'endDate' => $data['endDate']), true);
 	}
 
+	public static function fetchTopSold($month, $year, $limit)
+	{
+		# code...
+		global $registry;
+
+		$beginDate = $year . '-' . $month . '-01';
+		$endDate = $year . '-' . date('m') . '-';
+		$endDate .= ($month == 2) ? '28' : '31';
+
+		return $registry->get('db')->query('select sum(qty) as total, codeNo from sales where date between :beginDate and :endDate group by codeNo order by total desc limit ' . $limit, array('beginDate' => $beginDate, 'endDate' => $endDate), true);
+	}
+
+
 	public static function fetchTotalSalesForDateRange(Array $data)
 	{
 		# code...
@@ -254,6 +267,48 @@ class Sales extends FuniObject
 
 		$registry->get('salesDb')->deleteDocketItem($docketId);
 	}
+
+	public static function countTransactionsOnHoldForUser($userId)
+	{
+		# code...
+		global $registry;
+
+		return $registry->get('salesDb')->countTransactionsOnHoldForUser($userId);
+	}
+
+	public static function fetchSortedSalesByBrand(Array $data)
+	{
+		# code...
+		global $registry;
+		$query = 'select sum(qty) as totalQty, codeNo from sales where date between :beginDate and :endDate and codeNo in ( select codeNo from stockCard where brandId = :brandId ) group by codeNo';
+		return $registry->get('db')->query($query, array(
+			'beginDate' => $data['beginDate'],
+			'endDate' => $data['endDate'],
+			'brandId' => $data['brandId']
+		), true);
+	}
+
+	public static function fetchAllSalesForBrand(Array $data)
+	{
+		# code...
+		global $registry;
+		$query = 'select * from sales where codeNo in ( select codeNo from stockCard where brandId = :brandId ) and date between :beginDate and :endDate';
+		return $registry->get('db')->query($query, array(
+			'beginDate' => $data['beginDate'],
+			'endDate' => $data['endDate'],
+			'brandId' => $data['brandId']
+		), true);
+	}
+
+	public static function fetchTotalSalesByBrand(Array $data)
+	{
+		# code...
+		global $registry;
+		return $registry->get('db')->bindFetch('select sum(qty) as totalQty from sales where date between :beginDate and :endDate and codeNo in ( select codeNo from stockCard where brandId = :brandId )', array('beginDate' => $data['beginDate'], 'endDate' => $data['endDate'], 'brandId' => $data['brandId']), array('totalQty'))['totalQty'];
+
+	}
+
+
 
 #end of class
 }

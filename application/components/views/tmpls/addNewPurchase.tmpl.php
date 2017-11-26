@@ -134,6 +134,8 @@
                                                  <td><span style="color:#F15F79">Purchase No. : </span></td>
                                                  <td>
                                                      <input type="text" id="purchaseNo" class="form-control" value="<?php echo $purchaseId; ?>" onkeyup="fetchPurchase(this.value, 'purchaseNo');" autocomplete="off" style="width:130px; margin-left:12px" >
+
+                                                     <input type="hidden" id="purchaseNoHidden" value="<?php echo $purchaseId; ?>" />
                                                  </td>
                                              </tr>
 
@@ -141,6 +143,9 @@
                                                  <td><span style="color:#F15F79">Date : </span></td>
                                                  <td>
                                                      <input type="text" id="date" class="form-control" value="<?php echo changeDateFormat($today); ?>"  style="width:130px; margin-left:12px" >
+
+                                                     <input type="hidden" id="dateHidden" value="<?php echo changeDateFormat($today); ?>" />
+                                                     
                                                  </td>
                                              </tr>
                                          </table>

@@ -72,7 +72,7 @@ class ReportModel extends BaseModel{
         $e_month = filter_var($data['e-month'], FILTER_SANITIZE_STRING);
         $e_year = filter_var($data['e-year'], FILTER_SANITIZE_STRING);
 
-		
+
         $b_date = $b_year . '-' . $b_month . '-' . $b_day;
         $e_date = $e_year . '-' . $e_month . '-' . $e_day;
 
@@ -102,6 +102,51 @@ class ReportModel extends BaseModel{
 	}
 
 
+	public function setBrandReportParams(Array $data)
+	{
+		# code...
+		# code...
+		global $registry;
+		$session = $registry->get('session');
+
+		$b_day = filter_var($data['b-day'], FILTER_SANITIZE_STRING);
+		$b_month = filter_var($data['b-month'], FILTER_SANITIZE_STRING);
+		$b_year = filter_var($data['b-year'], FILTER_SANITIZE_STRING);
+
+		$e_day = filter_var($data['e-day'], FILTER_SANITIZE_STRING);
+		$e_month = filter_var($data['e-month'], FILTER_SANITIZE_STRING);
+		$e_year = filter_var($data['e-year'], FILTER_SANITIZE_STRING);
+
+		$brandId = filter_var($data['brandId'], FILTER_SANITIZE_NUMBER_INT);
+
+		$b_date = $b_year . '-' . $b_month . '-' . $b_day;
+		$e_date = $e_year . '-' . $e_month . '-' . $e_day;
+
+		$datetime1 = date_create($b_date);
+		$datetime2 = date_create($e_date);
+		$interval = date_diff($datetime1, $datetime2);
+
+		if($interval->format('%R%') == '-' || $interval->format('%R%a') == '+0'){
+
+		    $msg = 'Sort Begin Date must be earlier than Sort End Date';
+		    $this->execute(array( 'action' => 'display', 'tmpl' => 'brandReport', 'widget' => 'error', 'msg' => $msg ));
+		    return;
+		}
+
+		$session->write('brandReportBeginDate', $b_date);
+		$session->write('brandReportEndDate', $e_date);
+
+		$session->write('brandReportDate-b-day', $b_day);
+		$session->write('brandReportDate-b-month', $b_month);
+		$session->write('brandReportDate-b-year', $b_year);
+
+		$session->write('brandReportDate-e-day', $e_day);
+		$session->write('brandReportDate-e-month', $e_month);
+		$session->write('brandReportDate-e-year', $e_year);
+		$session->write('brandReport-brand', $brandId);
+
+		$this->execute(array( 'action' => 'render', 'tmpl' => 'brandReport', 'widget' => '', 'msg' => '' ));
+	}
 
 
 	#end of class

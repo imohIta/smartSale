@@ -205,53 +205,79 @@ function clearDocket(value = ''){
 function fetchPurchase(value, div){
     allowNosOnly(value, div);
 
-    var uri = window.baseUri + '/purchasing/fetchPrevious/PUR-' + value;
+    var purchaseNo = getValue('purchaseNoHidden');
 
-    xhr.open('GET', uri, true);
-    xhr.onload = function(e){
-        if(xhr.status == 200){
-            console.log(this.responseText);
-            if(this.responseText.trim() == 'not found'){
+    if(purchaseNo == value){
 
-                makeVisible('formHolder');
-                showDiv('addItemsToStockBtn');
-                setInnerHtml('docketHolder', '');
+        var uri = window.baseUri + '/purchasing/fetchDocket';
+        xhr.open('GET', uri, true);
+        xhr.onload = function(e){
 
-                hideDiv('supplierOld');
-                showDiv('supplier');
-                removeReadOnly('date');
+            makeVisible('formHolder');
+            showDiv('addItemsToStockBtn');
+            setInnerHtml('docketHolder', this.responseText);
 
-            }else{
+            hideDiv('supplierOld');
+            showDiv('supplier');
+            removeReadOnly('date');
+            setValue('date', getValue('dateHidden'));
+        };
+        xhr.send();
 
-                makeInvisible('formHolder');
-                hideDiv('addItemsToStockBtn');
-                setInnerHtml('docketHolder', this.responseText);
+    }else{
 
-                (function(){
-                    //fetch puchase details
-                    var uri = window.baseUri + '/purchasing/fetchPreviousDetails/PUR-' + value;
+        var uri = window.baseUri + '/purchasing/fetchPrevious/PUR-' + value;
 
-                    xhr.open('GET', uri, true);
-                    xhr.onload = function(e){
 
-                        var response = JSON.parse(this.responseText);
+        xhr.open('GET', uri, true);
+        xhr.onload = function(e){
+            if(xhr.status == 200){
+                console.log(this.responseText);
+                if(this.responseText.trim() == 'not found'){
 
-                        hideDiv('supplier');
-                        showDiv('supplierOld');
-                        setValue('supplierOld', response.supplier);
+                    makeVisible('formHolder');
+                    showDiv('addItemsToStockBtn');
+                    setInnerHtml('docketHolder', '');
 
-                        makeReadOnly('date');
-                        setValue('date', response.date);
+                    hideDiv('supplierOld');
+                    showDiv('supplier');
+                    removeReadOnly('date');
+                    setValue('date', getValue('dateHidden'));
 
-                    };
-                    xhr.send();
+                }else{
 
-                })();
+                    makeInvisible('formHolder');
+                    hideDiv('addItemsToStockBtn');
+                    setInnerHtml('docketHolder', this.responseText);
+
+                    (function(){
+                        //fetch puchase details
+                        var uri = window.baseUri + '/purchasing/fetchPreviousDetails/PUR-' + value;
+
+                        xhr.open('GET', uri, true);
+                        xhr.onload = function(e){
+
+                            var response = JSON.parse(this.responseText);
+
+                            hideDiv('supplier');
+                            showDiv('supplierOld');
+                            setValue('supplierOld', response.supplier);
+
+                            makeReadOnly('date');
+                            setValue('date', response.date);
+
+                        };
+                        xhr.send();
+
+                    })();
+                }
+
             }
+        };
+        xhr.send();
 
-        }
-    };
-    xhr.send();
+    }
+
 
 }
 

@@ -1,0 +1,18 @@
+#reportSlip {
+    width:700px;
+    text-align:center;
+    font-size: 12px;
+    margin:40px auto;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#reportSlip-title {
+	margin-bottom: 20px;
+	font-size: 38px;
+	font-weight: 400;
+}
+
+#reportSlip-title .mini-title{
+    font-size:23px;
+    font-weight: 200;
+}

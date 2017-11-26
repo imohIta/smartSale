@@ -171,7 +171,7 @@
 
         }
 
-    
+
 
         public function createCategory(Array $data)
         {
@@ -221,7 +221,7 @@
         {
             global $registry;
 
-            $required = array( 'itemName', 'codeNo', 'wholesalePrice', 'retailPrice', 'costPrice', 'groupId');
+            $required = array( 'itemName', 'codeNo', 'wholesalePrice', 'retailPrice', 'costPrice', 'groupId', 'brandId');
 
 
 
@@ -277,6 +277,33 @@
             }
 
             $this->execute(array( 'action' => 'display', 'tmpl' => 'stockCard', 'widget' => 'success', 'msg' => $msg ));
+
+        }
+
+        public function addBrand(Array $data)
+        {
+            # code...
+            global $registry;
+            $name = ucwords(filter_var($data['name'], FILTER_SANITIZE_STRING));
+
+            $registry->get('db')->insert('perfumeBrands', array('name' => $name));
+
+            $msg = 'Perfume Brand ( ' . $name . ' ) successfully added';
+            $this->execute(array('action'=>'display', 'tmpl' => 'addNewPerfumeBrand', 'widget' => 'success', 'msg' =>
+                $msg));
+
+        }
+
+        public function deletePerfumeBrand($brandId)
+        {
+            # code...
+            global $registry;
+
+            $brandId = filter_var($brandId, FILTER_SANITIZE_STRING);
+
+            $registry->get('db')->delete('perfumeBrands', array(
+                'id' => $brandId
+            ));
 
         }
 

@@ -4,7 +4,7 @@
 
     class StockController extends BaseController{
 
-        protected $_urlAllowedMthds = array('render','removeItem', 'addNew', 'setItemByCodeNo', 'suggestByName', 'setItemById','fetchDocketItemById', 'viewAll', 'removeBadItem', 'fetchStockItemByCodeNo', 'changeItemPrice', 'viewBadItems', 'stockCard', 'createCategory', 'deleteCategory', 'viewCategories');
+        protected $_urlAllowedMthds = array('render','removeItem', 'addNew', 'setItemByCodeNo', 'suggestByName', 'setItemById','fetchDocketItemById', 'viewAll', 'removeBadItem', 'fetchStockItemByCodeNo', 'changeItemPrice', 'viewBadItems', 'stockCard', 'createCategory', 'deleteCategory', 'viewCategories', 'addBrand', 'deletePerfumeBrand');
 
 
         public function render(){
@@ -119,7 +119,23 @@
             $this->_model->execute(array('action'=>'render', 'tmpl' => 'viewStockCategories', 'widget' => '', 'msg' => ''));
         }
 
+        public function addBrand()
+        {
+            # code...
+            if(isset($_POST['submit'])){
+                $this->_model->addBrand($_POST);
+            }else{
+                $this->_model->execute(array('action'=>'render', 'tmpl' => 'addNewPerfumeBrand', 'widget' => '', 'msg' =>
+                    ''));
+            }
+        }
 
+        public function deletePerfumeBrand()
+        {
+            # code...
+            global $registry;
+            $this->_model->deletePerfumeBrand($registry->get('router')->getParam(0)[0]);
+        }
 
 
     }

@@ -4,7 +4,7 @@
 
     class SalesController extends BaseController{
 
-        protected $_urlAllowedMthds = array('render', 'addNew', 'viewAll', 'reverse', 'addToDocket', 'clearDocket', 'deleteDocketItem', 'completeSale', 'viewTransactions', 'sort', 'summary', 'fetchTransactionsOnHold');
+        protected $_urlAllowedMthds = array('render', 'addNew', 'viewAll', 'reverse', 'addToDocket', 'clearDocket', 'deleteDocketItem', 'completeSale', 'viewTransactions', 'sort', 'summary', 'fetchTransactionsOnHold', 'fetchPrevious', 'fetchPreviousDetails', 'fetchDocket', 'holdTransaction', 'recallTransaction');
 
 
         public function render(){
@@ -44,13 +44,13 @@
 
         public function clearDocket(){
             global $registry;
-            $this->_model->clearDocket();
+            $this->_model->clearDocket($registry->get('router')->getParam(0)[0]);
         }
 
         public function deleteDocketItem()
         {
             global $registry;
-            $this->_model->deleteDocketItem($registry->get('router')->getParam(0)[0]);
+            $this->_model->deleteDocketItem($registry->get('router')->getParam(0)[0], $registry->get('router')->getParam(0)[1]);
         }
 
         public function completeSale(){
@@ -84,6 +84,41 @@
         {
             # code...
             $this->_model->fetchTransactionsOnHold();
+        }
+
+        public function fetchPrevious()
+        {
+            # code...
+            global $registry;
+            $this->_model->fetchPrevious($registry->get('router')->getParam(0)[0]);
+        }
+
+        public function fetchPreviousDetails()
+        {
+            # code...
+            global $registry;
+            $this->_model->fetchPreviousDetails($registry->get('router')->getParam(0)[0]);
+        }
+
+        public function fetchDocket()
+        {
+            # code...
+            global $registry;
+            $this->_model->fetchDocket($registry->get('router')->getParam(0)[0]);
+        }
+
+        public function holdTransaction()
+        {
+            # code...
+            global $registry;
+            $this->_model->holdTransaction($registry->get('router')->getParam(0)[0]);
+        }
+
+        public function recallTransaction()
+        {
+            # code...
+            global $registry;
+            $this->_model->recallTransaction($registry->get('router')->getParam(0)[0]);
         }
 
 

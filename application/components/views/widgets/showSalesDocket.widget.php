@@ -20,13 +20,14 @@
     }
 ?>
 
-<input type="hidden" id="docketCount" value="<?php echo count($docket); ?>" />
+<input type="hidden" id="docketCountHidden" value="<?php echo count($docket); ?>" />
+<input type="hidden" id="transId" value="<?php echo $msg['transId']; ?>" />
 
 <?php
+
+$total = $subTotal = $totalQty = $totalPrice = $totalDiscount = 0;
+
  if(count($docket) > 0){
-
-
-    $total = $subTotal = $totalQty = $totalPrice = $totalDiscount = 0;
 
     foreach($docket as $docketItem){
         $totalQty += $docketItem->qty;
@@ -71,9 +72,9 @@
 
 </tr>
 
+<?php } ?>
+
 
 <input type="hidden" id="subTotalHidden" value="<?php echo $subTotal; ?>" />
 <input type="hidden" id="totalDiscountHidden" value="<?php echo $totalDiscount; ?>" />
 <input type="hidden" id="grandTotalHidden" value="<?php echo $total; ?>" />
-
-<?php } ?>

@@ -322,10 +322,10 @@
                                             <td><?php echo $group->name; ?></td>
                                             <td><?php echo number_format($groupSales->totalDiscount); ?></td>
                                             <td><?php echo number_format($groupSales->totalSales); ?></td>
-                                            <td><?php echo round(($groupSales->totalSales * 100) / $salesDetails->totalSales, 2); ?> %</td>
+                                            <td><?php echo ($groupSales->totalSales == 0 ) ? 0 : round(($groupSales->totalSales * 100) / $salesDetails->totalSales, 2); ?> %</td>
                                             <td><?php echo number_format($totalGroupCost); ?></td>
                                             <td><?php echo number_format($profit); ?></td>
-                                            <td><?php echo round($profitPercent, 2); ?> %</td>
+                                            <td><?php echo ($profitPercent == 0 ) ? 0 : round($profitPercent, 2); ?> %</td>
                                         </tr>
 
 

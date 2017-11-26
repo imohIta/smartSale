@@ -60,7 +60,7 @@
             <table>
                 <thead>
                     <tr>
-                        <td colspan="5"><h3 style="text-align:center; font-size:18pt; margin-top:15px"><strong>INVIOCE ( <?php echo $receiptData['invioceNo']; ?> )</strong></h3></td>
+                        <td colspan="5"><h3 style="text-align:center; font-size:18pt; margin-top:15px"><strong>INVIOCE ( <?php echo $receiptData['invoiceNo']; ?> )</strong></h3></td>
                     </tr>
                     <tr>
                         <td style="font-size:16pt; width:10%"><strong>QTY</strong></td>
@@ -113,7 +113,7 @@
 
         <p style="line-height:0.2em">SmartSale<p>
         <p style="line-height:0.2em"><small>...Make sales with ease</small></p>
-        <p style="line-height:0.2em"><small>(+234) 80 6229 5588</small></p>
+        <p style="line-height:0.2em"><small>www.oxygyn.xyz</small></p>
 
     </div>
 

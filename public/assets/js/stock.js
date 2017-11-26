@@ -20,7 +20,8 @@ function getItem(){
                 setValue('costPrice', params.costPrice);
                 setValue('retailPrice', params.retailPrice);
                 setValue('tax', params.tax);
-                //setValue('groupId', params.groupId);
+                setValue('groupId', params.groupId);
+                setValue('brandId', params.brandId);
 
                 showDiv('infoHolder');
 
@@ -117,4 +118,25 @@ function mirrorValue(value, div){
     allowNosOnly(value, div);
     setValue('codeNoHidden', value);
 
+}
+
+function confirmDeleteBrand(brandId) {
+    showActionAlert({
+        'title' : 'Delete Brand?',
+        'text' : "You won't be able to revert this!",
+        'callbackFunction' : deletePerfumeBrand,
+        'successMsg' : 'Perfume Brand successfully deleted',
+        'params' : brandId
+    });
+}
+
+function deletePerfumeBrand(brandId) {
+    var uri = window.baseUri + '/stock/deletePerfumeBrand/' + brandId;
+    searchXhr.open('GET', uri, true);
+    searchXhr.onload = function(e){
+        if(searchXhr.status == 200){
+            hideDiv('brand'+brandId);
+        }
+    };
+    searchXhr.send();
 }

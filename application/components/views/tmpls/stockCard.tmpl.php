@@ -131,7 +131,7 @@
 
 
                                 <div class="row">
-									<div class="form-group col-md-4" style="margin-left:15px">
+									<div class="form-group col-md-3" style="margin-left:15px">
 										<label for="password">Group</label>
                                         <select name="groupId" id="groupId" class="form-control mb-10" required>
 
@@ -146,7 +146,24 @@
                                             <?php } ?>
 										</select>
 									</div>
-									<div class="form-group col-md-4">
+
+                                    <div class="form-group col-md-3" style="margin-left:15px">
+										<label for="password">Brand</label>
+                                        <select name="brandId" id="brandId" class="form-control mb-10" required>
+
+                                            <?php
+                                                # fetch all perfumeBrands
+                                                $perfumeBrands = $registry->get('db')->query('select * from perfumeBrands', array(), true);
+                                                foreach ($perfumeBrands as $brand) {
+                                                    # code...
+                                             ?>
+
+											<option value="<?php echo $brand->id; ?>"><?php echo $brand->name; ?></option>
+                                            <?php } ?>
+										</select>
+									</div>
+
+									<div class="form-group col-md-3">
 										<label for="passwordConfirm">Tax ( =N= )</label>
 										<input type="text" name="tax" id="tax" class="form-control" value="0" required onkeyup="allowNosOnly(this.value, 'tax')">
 									</div>

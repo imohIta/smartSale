@@ -16,6 +16,7 @@ class StockItem extends FuniObject
 	protected $_qtyInStock = null;
 	protected $_tax = null;
 	protected $_groupId = null;
+	protected $_brandId = null;
 
 
 	function __construct($obj)
@@ -42,6 +43,7 @@ class StockItem extends FuniObject
 			$this->_costPrice = $obj->costPrice;
 			$this->_qtyInStock = $obj->qty;
 			$this->_groupId = $obj->groupId;
+			$this->_brandId = $obj->brandId;
 			$this->_tax = $obj->tax;
 		}
 
@@ -54,6 +56,13 @@ class StockItem extends FuniObject
 		# code...
 		global $registry;
 		return $registry->get('db')->bindFetch('select name from stockCategories where id = :id', array('id' => $this->_groupId), array('name'))['name'];
+	}
+
+	public function getBrand()
+	{
+		# code...
+		global $registry;
+		return $registry->get('db')->bindFetch('select name from perfumeBrands where id = :id', array('id' => $this->_brandId), array('name'))['name'];
 	}
 
 	public function updateCard(Array $data){
@@ -77,8 +86,9 @@ class StockItem extends FuniObject
 		global $registry;
 
 		$newQty = $this->_qtyInStock + $qty;
+		$registry->get('stockDb')->updateQty($newQty, $this->_codeNo);
 		$this->_qtyInStock = $newQty;
-		$registry->get('stockDb')->updateQty($newQty, $this->_id);
+
 	}
 
 
@@ -175,17 +185,6 @@ class StockItem extends FuniObject
 
 	}
 
-	public static function fetchTopSold($month, $year, $limit)
-	{
-		# code...
-		global $registry;
-
-		$beginDate = $year . '-' . $month . '-01';
-		$endDate = $year . '-' . date('m') . '-';
-		$endDate .= ($month == 2) ? '28' : '31';
-
-		return $registry->get('db')->query('select sum(qty) as total, codeNo from sales where date between :beginDate and :endDate group by codeNo order by total desc limit ' . $limit, array('beginDate' => $beginDate, 'endDate' => $endDate), true);
-	}
 
 	public static function fetchIdByCodeNo($codeNo)
 	{
@@ -203,6 +202,18 @@ class StockItem extends FuniObject
 		# code...
 		global $registry;
 		return $registry->get('db')->query('select * from stockCategories', array(), true);
+
+	}
+
+	public static function fetchBrands($limit = '')
+	{
+		# code...
+		global $registry;
+		$query = 'select * from perfumeBrands';
+		if($limit != ''){
+			$query .= ' limit ' . $limit;
+		}
+		return $registry->get('db')->query($query, array(), true);
 
 	}
 
@@ -250,6 +261,15 @@ class StockItem extends FuniObject
 		global $registry;
 		return $registry->get('db')->query('select * from currentStock where qty <= ' . $reductionBenchmark, array(), true);
 	}
+
+	public static function getBrandName($brandId)
+	{
+		# code...
+		global $registry;
+		return $registry->get('db')->bindFetch('select name from perfumeBrands where id = :id', array('id' => $brandId), array('name'))['name'];
+	}
+
+
 
 #end of class
 }

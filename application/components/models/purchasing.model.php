@@ -123,7 +123,7 @@
             $msg = array();
             $msg[ 'docket' ] = StockItem::fetchPurchaseDocket(date('Y-m-d'), $thisUser->get('id'));
 
-            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showpurchaseDocket', 'msg' => $msg ));
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPurchaseDocket', 'msg' => $msg ));
         }
 
 
@@ -139,7 +139,7 @@
             $msg = array();
             $msg[ 'docket' ] = StockItem::fetchPurchaseDocket(date('Y-m-d'), $thisUser->get('id'));
 
-            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showpurchaseDocket', 'msg' => $msg ));
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPurchaseDocket', 'msg' => $msg ));
         }
 
 
@@ -175,6 +175,7 @@
                 # loop tru each docket item
                 foreach($docketItems as $docketItem){
 
+
                     # create new instance of stock Item
                     $stockItem = new StockItem($registry->get('stockDb')->fetchStockByCodeNo($docketItem->codeNo));
 
@@ -184,10 +185,10 @@
                        $stockItem->updateCostPrice($docketItem->price);
                     }
 
-
                     # update qty of StockItem
                     $stockItem->increaseQty($docketItem->qty);
 
+                    
                     # insert item into stock purchases table
                     StockItem::insertIntoPurchases(array(
                        'date' => changeDateFormat($date, 'd-m-Y', 'Y-m-d'),
@@ -217,7 +218,7 @@
 
             }
 
-            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showpurchaseDocket', 'msg' => $msg ));
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPurchaseDocket', 'msg' => $msg ));
 
 
 
@@ -257,6 +258,20 @@
             $msg['responseType'] = 'json';
 
             $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPreviousPurchase', 'msg' => $msg ));
+        }
+
+        public function fetchDocket()
+        {
+            # code...
+            global $registry;
+            $session = $registry->get('session');
+            $thisUser = unserialize($session->read('thisUser'));
+
+            $msg[ 'docket' ] = StockItem::fetchPurchaseDocket(date('Y-m-d'), $thisUser->get('id'));
+
+            $msg['responseType'] = 'html';
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPurchaseDocket', 'msg' => $msg ));
         }
 
 

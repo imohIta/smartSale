@@ -41,6 +41,7 @@ if(!file_exists(PATH . '/install/index.php')){
 	# check if config file exist
 	if (is_file(PATH . '/core/configs/dbConfig.php')) {
 
+
 		require_once PATH . '/core/configs/dbConfig.php';
 
 		# create database object
@@ -49,6 +50,7 @@ if(!file_exists(PATH . '/install/index.php')){
 		# set database object with pdo object created from installation ( $pdo and $dbName are from dbCOnfig.php )
 		# This will be Database configuration for development Env
 		$database->setDatabase($pdo, $dbName);
+
 
 		# fetch settings
 		$query = 'select ' . $env . ' as ' . $env . ' from funiSettings where id = :id';

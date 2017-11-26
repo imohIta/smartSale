@@ -21,6 +21,7 @@
             'qtyInStock' => number_format($item->qty),
             'tax' => $item->tax,
             'groupId' => $item->groupId,
+            'brandId' => $item->brandId,
             'lastSoldDate' => $lastSoldDate,
             'lastPurchaseDate' => $lastPurchaseDate,
             'lastCostPrice' => number_format($lastCostPrice)

@@ -103,10 +103,10 @@
             $settings = json_encode(array(
                 'appName' => $appName,
                 'baseUrl' => $baseUrl,
-                'dbName' => $_SESSION['dbName'],
-                'dbHost' => $_SESSION['dbHost'],
-                'dbUser' => $_SESSION['dbUser'],
-                'dbPwd' => simpleCrypt($_SESSION['dbPwd'])
+                'dbName' => $dbName,
+                'dbHost' => $dbHost,
+                'dbUser' => $dbUser,
+                'dbPwd' => simpleCrypt($dbPwd)
             ));
 
 

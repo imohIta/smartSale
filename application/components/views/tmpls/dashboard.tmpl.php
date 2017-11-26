@@ -39,9 +39,8 @@ $year = date('Y');
 
 
 # fetch top sold Items
-$topItems = StockItem::fetchTopSold($month, $year, 5);
+$topItems = Sales::fetchTopSold($month, $year, 10);
 
-//var_dump($topItems); die;
 
 $dataPoints = array();
 

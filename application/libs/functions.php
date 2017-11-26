@@ -38,7 +38,7 @@ function now()
 
 
 function timeToString($time){
-	echo date('g:i:s a', $time);
+	return date('g:i:s a', $time);
 }
 
 function generateId(){

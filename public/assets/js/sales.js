@@ -169,7 +169,14 @@ function addToDocket(){
     var qty = getValue('qty');
     var discount = getValue('discount');
     var itemName = getValue('itemName');
-    var transId = 'INV-' + getValue('invioceNoHidden');
+    var invoiceNo = getValue('invioceNoHidden');
+
+    if(invioceNo == ''){
+        var transId = '';
+    }else{
+        var transId = 'INV-' + invoiceNo;
+    }
+
     var total = getValue('total');
 
     if( codeNo == ''){
@@ -236,6 +243,7 @@ function addToDocket(){
             setInnerHtml('discount', getValue('totalDiscountHidden'));
             setInnerHtml('grandTotal', getValue('grandTotalHidden'));
 
+            setValue('docketCount', getValue('docketCountHidden'));
 
         }
     };
@@ -246,8 +254,8 @@ function addToDocket(){
 function deleteDocketItem(itemId){
 
         //hideDiv('row'+itemId);
-
-        var uri = window.baseUri + '/sales/deleteDocketItem/' + itemId;
+        var transId = 'INV-' + getValue('invioceNoHidden');
+        var uri = window.baseUri + '/sales/deleteDocketItem/' + itemId + '/' + transId;
 
         xhr.open('GET', uri, true);
         xhr.onload = function(e){
@@ -262,7 +270,8 @@ function deleteDocketItem(itemId){
 
 
 function clearDocket(value = ''){
-    var uri = window.baseUri + '/sales/clearDocket';
+    var transId = 'INV-' + getValue('invioceNoHidden');
+    var uri = window.baseUri + '/sales/clearDocket/'+transId;
 
     xhr.open('GET', uri, true);
     xhr.onload = function(e){
@@ -276,54 +285,106 @@ function clearDocket(value = ''){
 
 function fetchPrevious(value, div){
     allowNosOnly(value, div);
+    var invioceNo = getValue('invioceNoHidden');
 
-    var uri = window.baseUri + '/sales/fetchPrevious/INV-' + value;
+    if(invioceNo == value){
 
-    xhr.open('GET', uri, true);
-    xhr.onload = function(e){
-        if(xhr.status == 200){
-            console.log(this.responseText);
-            if(this.responseText.trim() == 'not found'){
+        var uri = window.baseUri + '/sales/fetchDocket/INV-'+invioceNo;
+        xhr.open('GET', uri, true);
+        xhr.onload = function(e){
 
-                makeVisible('formHolder');
-                showDiv('addItemsToStockBtn');
-                setInnerHtml('docketHolder', '');
+            makeVisible('formHolder');
+            // showDiv('actionsHolder');
+            // showDiv('totals');
+            showDiv('bottomDiv');
+            setInnerHtml('docketHolder', this.responseText);
 
-                hideDiv('supplierOld');
-                showDiv('supplier');
-                removeReadOnly('date');
+            removeReadOnly('date');
+            removeReadOnly('shippingAddr');
+            removeReadOnly('customerName');
+            removeReadOnly('customerAddr');
 
-            }else{
+            setValue('date', getValue('dateHidden'));
+            setValue('shippingAddr', '');
+            setValue('customerAddr', '');
+            setValue('customerName', '');
 
-                makeInvisible('formHolder');
-                hideDiv('addItemsToStockBtn');
-                setInnerHtml('docketHolder', this.responseText);
+            setInnerHtml('subTotal', getValue('subTotalHidden'));
+            setInnerHtml('discount', getValue('totalDiscountHidden'));
+            setInnerHtml('grandTotal', getValue('grandTotalHidden'));
+        };
+        xhr.send();
 
-                (function(){
-                    //fetch puchase details
-                    var uri = window.baseUri + '/purchasing/fetchPreviousDetails/PUR-' + value;
+    }else{
 
-                    xhr.open('GET', uri, true);
-                    xhr.onload = function(e){
+        var uri = window.baseUri + '/sales/fetchPrevious/INV-' + value;
 
-                        var response = JSON.parse(this.responseText);
+        xhr.open('GET', uri, true);
+        xhr.onload = function(e){
+            if(xhr.status == 200){
+                //console.log(this.responseText);
+                if(this.responseText.trim() == 'not found'){
 
-                        hideDiv('supplier');
-                        showDiv('supplierOld');
-                        setValue('supplierOld', response.supplier);
+                    makeVisible('formHolder');
+                    // showDiv('actionsHolder');
+                    // showDiv('totals');
+                    showDiv('bottomDiv');
+                    setInnerHtml('docketHolder', '');
 
-                        makeReadOnly('date');
-                        setValue('date', response.date);
+                    removeReadOnly('date');
+                    removeReadOnly('shippingAddr');
+                    removeReadOnly('customerName');
+                    removeReadOnly('customerAddr');
 
-                    };
-                    xhr.send();
+                    setValue('date', getValue('dateHidden'));
+                    setValue('shippingAddr', '');
+                    setValue('customerAddr', '');
+                    setValue('customerName', '');
 
-                })();
+                    setInnerHtml('subTotal', 0);
+                    setInnerHtml('discount', 0);
+                    setInnerHtml('grandTotal', 0);
+
+                }else{
+
+                    makeInvisible('formHolder');
+                    // hideDiv('actionsHolder');
+                    // hideDiv('totals');
+                    hideDiv('bottomDiv');
+                    setInnerHtml('docketHolder', this.responseText);
+
+                    (function(){
+                        //fetch puchase details
+                        var uri = window.baseUri + '/sales/fetchPreviousDetails/INV-' + value;
+
+                        xhr.open('GET', uri, true);
+                        xhr.onload = function(e){
+
+                            var response = JSON.parse(this.responseText);
+
+                            makeReadOnly('date');
+                            makeReadOnly('shippingAddr');
+                            makeReadOnly('customerName');
+                            makeReadOnly('customerAddr');
+
+
+                            setValue('shippingAddr', response.shippingAddr);
+                            setValue('customerName', response.customerName);
+                            setValue('customerAddr', response.customerAddr);
+                            setValue('date', response.date);
+
+                        };
+                        xhr.send();
+
+                    })();
+                }
+
             }
+        };
+        xhr.send();
 
-        }
-    };
-    xhr.send();
+
+    }
 
 }
 
@@ -351,7 +412,7 @@ function addSale(value = ''){
             'customerName' : customerName,
             'customerAddr' : customerAddr,
             'date' : date,
-            'invioceNo' : invioceNo,
+            'invoiceNo' : invioceNo,
             'shippingAddr' : shippingAddr,
             'payType' : payType
         }));
@@ -367,6 +428,9 @@ function addSale(value = ''){
             setValue('shippingAddr', '');
             setInnerHtml('docket', this.responseText);
             printInvioce();
+
+            setValue('invioceNo', parseInt(invioceNo) + 1);
+            setValue('invioceNoHidden', parseInt(invioceNo) + 1);
             // hideDiv('docketOptions');
             // hideDiv('docketHolderMain');
         };
@@ -422,15 +486,19 @@ function emailInvioce(){
 }
 
 function holdAndRecall(){
+
     var docketCount = getValue('docketCount');
+
     if(docketCount == 0){
 
         var onHoldTransactionsCount = getValue('onHoldTransactionsCount');
+
 
         if(onHoldTransactionsCount > 0){
 
             // recall transaction
             showDiv('myModal');
+
 
             // fetch transactionson-hold
             var uri = window.baseUri + '/sales/fetchTransactionsOnHold';
@@ -438,18 +506,16 @@ function holdAndRecall(){
             xhr.open('GET', uri, true);
             xhr.onload = function(e){
 
-                setInnerHtml('', this.responseText);
+                setInnerHtml('transHolder', this.responseText);
 
             };
             xhr.send();
-
-
 
             // var modal = getElement('myModal');
             // modal.classList.add('in');
 
         }else{
-            showError('Sales Docket is Empty');
+            showAlert('Sales Docket is Empty');
             return false;
         }
 
@@ -458,7 +524,27 @@ function holdAndRecall(){
 
         // hold transaction
 
+
+
+        var invioceNo = getValue('invioceNoHidden');
+
+        var url = window.baseUri + '/sales/holdTransaction/INV-' + invioceNo;
+
+        xhr.open('GET', url, true);
+        xhr.onload = function(e){
+
+            var response = JSON.parse(this.responseText);
+
+            setValue('invioceNo', '');
+            setValue('invioceNoHidden', '');
+
+            setValue('onHoldTransactionsCount', parseInt(getValue('onHoldTransactionsCount')) + 1);
+
+        };
+        xhr.send();
+
         setInnerHtml('docketHolder', '');
+        setValue('docketCount', 0);
         setInnerHtml('subTotal', '0');
         setInnerHtml('discount', '0');
         setInnerHtml('grandTotal', '0');
@@ -466,9 +552,36 @@ function holdAndRecall(){
         setValue('customerAddr', '');
         setValue('shippingAddr', '');
 
-        //increaseInvioceNumber();
+
 
     }
+}
+
+function recallTransaction(invioceNo){
+
+
+    // fetch traction using invioceNo
+    var uri = window.baseUri + '/sales/recallTransaction/' + invioceNo;
+
+    xhr.open('GET', uri, true);
+    xhr.onload = function(e){
+
+        setInnerHtml('docketHolder', this.responseText);
+
+        setInnerHtml('subTotal', getValue('subTotalHidden'));
+        setInnerHtml('discount', getValue('totalDiscountHidden'));
+        setInnerHtml('grandTotal', getValue('grandTotalHidden'));
+
+        setValue('docketCount', getValue('docketCountHidden'));
+
+        setValue('invioceNo', getValue('transId'));
+        setValue('invioceNoHidden', getValue('transId'));
+
+        dismissModal();
+
+    };
+    xhr.send();
+
 }
 
 function dismissModal(){
@@ -500,3 +613,20 @@ $('#dismissModalBtn').click(function () {
 
     dismissModal();
 });
+
+
+function printSalesDetails(){
+
+    showDiv('reportSlip');
+    var divText = document.getElementById("reportSlip-Holder").innerHTML;
+    hideDiv('reportSlip');
+    var myWindow = window.open('', '', 'width=750,height=800');
+    var doc = myWindow.document;
+    doc.open();
+    doc.write(divText);
+    doc.close();
+    myWindow.focus();
+    myWindow.print();
+    myWindow.close();
+
+}

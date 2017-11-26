@@ -4,7 +4,7 @@ defined('ACCESS') or Error::exitApp();
 
 class ReportController extends BaseController{
 
-	protected $_urlAllowedMthds = array('render', 'sales', 'stockGroup', 'outOfStock');
+	protected $_urlAllowedMthds = array('render', 'sales', 'stockGroup', 'outOfStock', 'brand');
 
 
 	public function render(){
@@ -45,6 +45,16 @@ class ReportController extends BaseController{
 	{
 		# code...
 		$this->_model->execute(array( 'action' => 'render', 'tmpl' => 'outOfStockReport', 'widget' => '', 'msg' => '' ));
+	}
+
+	public function brand()
+	{
+
+		if(isset($_POST['submit'])){
+			$this->_model->setBrandReportParams($_POST);
+		}else {
+			$this->_model->execute(array( 'action' => 'render', 'tmpl' => 'brandReport', 'widget' => '', 'msg' => '' ));
+		}
 	}
 
 }

@@ -39,6 +39,7 @@
                                         <li><a href="<?php echo $baseUri; ?>/sales/sort"> Staff Sales Report </a></li>
                                         <li><a href="<?php echo $baseUri; ?>/report/stockGroup"> Stock Group Report </a></li>
                                         <li><a href="<?php echo $baseUri; ?>/report/outOfStock"> Out of Stock Report </a></li>
+                                        <li><a href="<?php echo $baseUri; ?>/report/brand"> Brand Report </a></li>
                                     </ul>
                                 </li>
 
@@ -61,10 +62,25 @@
                                     <ul>
                                         <li><a href="<?php echo $baseUri; ?>/stock/stockCard">Stock Card</a></li>
                                         <li><a href="<?php echo $baseUri; ?>/stock/viewAll">View Current Stock</a></li>
-                                        <li><a href="<?php echo $baseUri; ?>/stock/removeBadItem">Remove Bad Item</a></li>
-                                        <li><a href="<?php echo $baseUri; ?>/stock/viewBadItems">View Bad Item</a></li>
-                                        <li><a href="<?php echo $baseUri; ?>/stock/createCategory">Add Category</a></li>
-                                        <li><a href="<?php echo $baseUri; ?>/stock/viewCategories">View Categories</a></li>
+                                        <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Bad Items</a>
+                                            <ul>
+                                                <li><a href="<?php echo $baseUri; ?>/stock/removeBadItem">Remove</a></li>
+                                                <li><a href="<?php echo $baseUri; ?>/stock/viewBadItems">View</a></li>
+                                            </ul>
+                                        </li>
+                                        <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Categories</a>
+                                            <ul>
+                                                <li><a href="<?php echo $baseUri; ?>/stock/createCategory">Add</a></li>
+                                                <li><a href="<?php echo $baseUri; ?>/stock/viewCategories">View</a></li>
+                                            </ul>
+                                        </li>
+                                        <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Perfume Brands</a>
+                                            <ul>
+                                                <li><a href="<?php echo $baseUri; ?>/stock/addBrand">Add</a></li>
+                                            </ul>
+                                        </li>
+
+
                                     </ul>
                                 </li>
 
@@ -146,10 +162,23 @@
                             <ul>
                                 <li><a href="<?php echo $baseUri; ?>/stock/stockCard">Stock Card</a></li>
                                 <li><a href="<?php echo $baseUri; ?>/stock/viewAll">View Current Stock</a></li>
-                                <li><a href="<?php echo $baseUri; ?>/stock/removeBadItem">Remove Bad Item</a></li>
-                                <li><a href="<?php echo $baseUri; ?>/stock/viewBadItems">View Bad Item</a></li>
-                                <li><a href="<?php echo $baseUri; ?>/stock/createCategory">Add Category</a></li>
-                                <li><a href="<?php echo $baseUri; ?>/stock/viewCategories">View Categories</a></li>
+                                <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Bad Items</a>
+                                    <ul>
+                                        <li><a href="<?php echo $baseUri; ?>/stock/removeBadItem">Remove</a></li>
+                                        <li><a href="<?php echo $baseUri; ?>/stock/viewBadItems">View</a></li>
+                                    </ul>
+                                </li>
+                                <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Categories</a>
+                                    <ul>
+                                        <li><a href="<?php echo $baseUri; ?>/stock/createCategory">Add</a></li>
+                                        <li><a href="<?php echo $baseUri; ?>/stock/viewCategories">View</a></li>
+                                    </ul>
+                                </li>
+                                <li> <a role="button" tabindex="0"><i class="fa fa-angle-right"></i> Perfume Brands</a>
+                                    <ul>
+                                        <li><a href="<?php echo $baseUri; ?>/stock/addBrand">Add</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         <li> <a role="button" tabindex="0"><i class="fa fa-credit-card"></i> <span>Expenses</span></a>

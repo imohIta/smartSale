@@ -30,7 +30,8 @@ class StockDatabase extends Db{
 			'costPrice'      => $data['costPrice'],
 			'retailPrice' => $data['retailPrice'],
 			'tax' => (int)$data['tax'],
-			'groupId' => $data['groupId']
+			'groupId' => $data['groupId'],
+			'brandId' => $data['brandId']
 		));
 
 		# insert into current stock
@@ -48,7 +49,8 @@ class StockDatabase extends Db{
             'costPrice'      => $data['costPrice'],
             'retailPrice' => $data['retailPrice'],
             'tax' => $data['tax'],
-            'groupId' => $data['groupId']
+            'groupId' => $data['groupId'],
+			'brandId' => $data['brandId']
 			), array('codeNo' => $data['codeNo']));
 	}
 
@@ -142,8 +144,8 @@ class StockDatabase extends Db{
 		return parent::query($query, array(), true);
 	}
 
-	public function updateQty($qty, $id){
-		return parent::update('currentStock', array('qty' => $qty), array('id' => $id));
+	public function updateQty($qty, $codeNo){
+		return parent::update('currentStock', array('qty' => $qty), array('codeNo' => $codeNo));
 	}
 
 

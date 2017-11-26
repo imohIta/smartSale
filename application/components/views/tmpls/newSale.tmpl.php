@@ -21,15 +21,26 @@
     }
 
 
-    # fetch next purchase no
-    $result = $registry->get('db')->bindFetch('select lastInvioceNo as no from appCache where id = :id', array('id' => 1), array('no'));
-    $invioceNo = (int)$result['no'] + 1;
+    # check if any item is currently in sales docket
+    $response = $registry->get('db')->query('select * from salesDocket where onHold = 1 order by id desc limit 1');
+    if(false === $response){
 
-    # store invioce no in session
-    $session->write('currentInvioceNo', 'INV-'. $invioceNo);
+        # fetch next purchase no
+        $result = $registry->get('db')->bindFetch('select lastInvioceNo as no from appCache where id = :id', array('id' => 1), array('no'));
+        $invioceNo = (int)$result['no'] + 1;
+
+    }else{
+
+        $invioceNo = explode('-', $response->transId);
+        $invioceNo = (int)$invioceNo[1] + 1;
+    }
+
 
     # fetch sales docket
-    $salesDocket = Sales::fetchDocket($thisUser->get('id'), $session->read('currentInvioceNo'));
+    $salesDocket = Sales::fetchDocket($thisUser->get('id'), 'INV-'. $invioceNo);
+
+    # count transactions on hold
+    $transactionsOnHoldCount = Sales::countTransactionsOnHoldForUser($thisUser->get('id'));
 
 
     #include header
@@ -133,13 +144,16 @@
 
                                     <label for="phone"><strong>INVIOCE DETAILS</strong></label>
 
-                                    <input type="text" id="invioceNo" class="form-control col-sm-12" placeholder="Invioce No" value="<?php echo $invioceNo; ?>" />
+                                    <input type="text" id="invioceNo" class="form-control col-sm-12" placeholder="Invioce No" value="<?php echo $invioceNo; ?>" onkeyup="fetchPrevious(this.value, 'invioceNo');" autocomplete="off" />
 
                                     <input type="hidden" id="invioceNoHidden" value="<?php echo $invioceNo; ?>" />
 
                                     <br />
 
                                     <input type="text" id="date" class="form-control col-sm-12" placeholder="Date" value="<?php echo changeDateFormat($today); ?>" />
+
+                                    <input type="hidden" id="dateHidden" value="<?php echo changeDateFormat($today); ?>" />
+
                                     <br />
 
                                 </div>
@@ -168,13 +182,16 @@
                                 </tr>
                             </thead>
 
+
+
+                            <!-- hold count on transactions put on-hold -->
+                            <input type="hidden" id="onHoldTransactionsCount" value="<?php echo $transactionsOnHoldCount; ?>" />
+
+                            <!-- Hold docket count to make sure sale is not completed if docket is empty -->
+                            <input type="hidden" id="docketCount" value="<?php echo count($salesDocket); ?>" />
+
                             <tbody id="docketHolder">
 
-                                <!-- Hold docket count to make sure sale is not completed if docket is empty -->
-                                <input type="hidden" id="docketCount" value="<?php echo count($salesDocket); ?>" />
-
-                                <!-- hold count on transactions put on-hold -->
-                                <input type="hidden" id="onHoldTransactionsCount" value="<?php echo 1; ?>" />
 
                                 <?php
                                     if(count($salesDocket) > 0){
@@ -285,7 +302,7 @@
 
                 </section>
 
-                <section class="boxs">
+                <section id="bottomDiv" class="boxs">
 
                     <div class="boxs-body">
                         <div class="row">
@@ -309,7 +326,7 @@
 
                             </div>
 
-                            <div class="col-md-4 col-md-offset-1 text-right">
+                            <div id="totals" class="col-md-4 col-md-offset-1 text-right">
 
                                 <p><strong>SubTotal : =N= <span id="subTotal"><?php echo isset($subTotal) ? number_format($subTotal) : 0; ?></span></strong></p>
                                 <p><strong>Discount : % <span id="discount"><?php echo isset($subTotal) ? number_format($totalDiscount) : 0; ?></span></strong></p>
@@ -346,21 +363,12 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Time</th>
                             <th>Invioce No.</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>12-10-2014</td>
-                            <td>11.30 AM</td>
-                            <td><a href="" onclick="">INV-2</a></td>
-                        </tr>
-                        <tr>
-                            <td>12-10-2014</td>
-                            <td>1.45 PM</td>
-                            <td><a href="" onclick="">INV-5</a></td>
-                        </tr>
+                    <tbody id="transHolder">
+
+
                     </tbody>
                 </table>
 

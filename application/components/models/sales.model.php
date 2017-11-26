@@ -32,8 +32,6 @@
                 $formFields[] = $key;
             }
 
-            //var_dump($formFields, $data); die;
-
             #sanitize each of the fields & append to sanitized array
             $sanitized = array();
             foreach ( $formFields as $key ) {
@@ -49,6 +47,12 @@
 
             }
 
+            # check if transId is sent from UI
+            if($sanitized['transId'] == ''){
+                $transId = $registry->get('db')->bindFetch('select lastInvioceNo as no from appCache where id = :id', array('id' => 1), array('no'))['no'];
+                $transId = (int)transId + 1;
+                $sanitized['transId'] = 'INV-' . $transId;
+            }
 
             # check if qty of required item is up to the qty of that item in stock
             $stockItem = new StockItem($registry->get('stockDb')->fetchStockByCodeNo($sanitized[ 'codeNo' ]));
@@ -59,7 +63,7 @@
                 $msg = array();
                 $msg['errorMsg'] =  $stockItem->get('name') . "'s quantity in stock is less than " . $sanitized['qty'] . ". ( Available Qty : " . $stockItem->get('qtyInStock') . " )";
 
-                $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $session->read('currentInvioceNo'));
+                $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $sanitized['transId']);
 
                 $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showSalesDocket', 'msg' => $msg ));
                 return;
@@ -125,20 +129,20 @@
 
             # fetch current Docket
             $msg = array();
-            $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $session->read('currentInvioceNo'));
+            $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $sanitized['transId']);
 
             $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showSalesDocket', 'msg' => $msg ));
 
 
         }
 
-        public function clearDocket(){
+        public function clearDocket($transId){
 
             global $registry;
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
 
-            Sales::clearDocket($session->read('currentInvioceNo'));
+            Sales::clearDocket($transId);
 
         }
 
@@ -164,7 +168,7 @@
 
         }
 
-        public function deleteDocketItem($docketId)
+        public function deleteDocketItem($docketId, $transId)
         {
             global $registry;
             $session = $registry->get('session');
@@ -183,7 +187,7 @@
 
             # fetch current Docket
             $msg = array();
-            $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $session->read('currentInvioceNo'));
+            $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $transId);
 
             $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showSalesDocket', 'msg' => $msg ));
         }
@@ -199,10 +203,10 @@
             $customerAddr = filter_var($data['customerAddr'], FILTER_SANITIZE_STRING);
             $shippingAddr = filter_var($data['shippingAddr'], FILTER_SANITIZE_STRING);
             $date = filter_var($data['date'], FILTER_SANITIZE_STRING);
-            $invioceNo = filter_var($data['invioceNo'], FILTER_SANITIZE_STRING);
+            $invoiceNo = filter_var($data['invoiceNo'], FILTER_SANITIZE_STRING);
 
             # get sales docket
-            $salesDocket = Sales::fetchDocket($thisUser->get('id'), 'INV-' . $invioceNo);
+            $salesDocket = Sales::fetchDocket($thisUser->get('id'), 'INV-' . $invoiceNo);
 
             if(count($salesDocket) < 1){
 
@@ -219,7 +223,7 @@
                 'customerName' => $customerName,
                 'customerAddr' => $customerAddr,
                 'shippingAddr' => $shippingAddr,
-                'invioceNo' => 'INV-'. $invioceNo,
+                'invoiceNo' => 'INV-'. $invoiceNo,
                 'docket' => $salesDocket,
                 'staffId' => $thisUser->get('id')
             );
@@ -235,7 +239,7 @@
                 Sales::addNew(array(
                     'date' => date('Y-m-d'),
                     'time' => $time,
-                    'transId' => 'INV-'. $invioceNo,
+                    'transId' => 'INV-'. $invoiceNo,
                     'codeNo' => $docketItem->codeNo,
                     'qty' => $docketItem->qty,
                     'price' => $docketItem->price,
@@ -258,18 +262,23 @@
             # add transaction details
             Sales::addTransDetails(array(
                 'date' => date('Y-m-d'),
-                'transId' => 'INV-'. $invioceNo,
+                'transId' => 'INV-'. $invoiceNo,
                 'subTotal' => $subTotal,
                 'discount' => $totalDiscount,
                 'grandTotal' => $grandTotal,
                 'payType' => $payType,
                 'customerDetails' => $customerDetails,
-                'shippingDetails' => $shippingAddr,
+                'shippingDetails' => json_encode(array('address' => $shippingAddr)),
                 'userId' => $thisUser->get('id')
             ));
 
+            # @TODO send shipping alert notification
+            if($shippingAddr != ''){
+
+            }
+
             # update last purchase No
-            $registry->get('db')->update('appCache', array('lastInvioceNo' => $invioceNo + 1), array('id' => 1));
+            $registry->get('db')->update('appCache', array('lastInvioceNo' => $invoiceNo), array('id' => 1));
 
 
             $this->execute(array('action'=>'display', 'tmpl' => '', 'widget' => 'showSaleReceipt', 'msg' => $msg));
@@ -330,8 +339,113 @@
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
 
-            $msg['transactionsOnHold'] = $registry->get('db')->query('select * from transactionsOnHold where userId = :userId', array('userId' => $thisUser->get('id')), true);
+            $msg['transactionsOnHold'] = $registry->get('db')->query('select * from salesDocket where staffId = :userId and onHold = :onHold group by transId', array('userId' => $thisUser->get('id'), 'onHold' => 1), true);
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'transactionsOnHold', 'msg' => $msg ));
         }
+
+
+        public function fetchPrevious($transId)
+        {
+            # code...
+            global $registry;
+
+            $trandId = filter_var($transId, FILTER_SANITIZE_STRING);
+
+            $msg['docket'] = $registry->get('db')->query('select * from sales where transId = :transId', array('transId' => $transId), true);
+            $msg['responseType'] = 'html';
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPreviousSales', 'msg' => $msg ));
+        }
+
+        public function fetchPreviousDetails($transId)
+        {
+            # code...
+            global $registry;
+
+            $trandId = filter_var($transId, FILTER_SANITIZE_STRING);
+
+            $transDetails = $registry->get('db')->query('select * from transactions where transId = :transId', array('transId' => $transId));
+
+            $customerDetails = json_decode($transDetails->customerDetails);
+            $msg['docket'] = array(
+                'date' => changeDateFormat($transDetails->date),
+                'customerName' => $customerDetails->name,
+                'customerAddr' => $customerDetails->address,
+                'shippingAddr' => ''
+            );
+
+            if($transDetails->shippingDetails != ''){
+                $shippingDetails = json_decode($transDetails->shippingDetails);
+                $msg['docket']['shippingAddr'] = $shippingDetails->address;
+            }
+
+            $msg['responseType'] = 'json';
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showPreviousSales', 'msg' => $msg ));
+        }
+
+        public function fetchDocket($invoiceNo)
+        {
+            # code...
+            global $registry;
+            $session = $registry->get('session');
+            $thisUser = unserialize($session->read('thisUser'));
+            $invoiceNo = filter_var($invoiceNo, FILTER_SANITIZE_STRING);
+
+            $msg[ 'docket' ] = Sales::fetchDocket($thisUser->get('id'), $invoiceNo);
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showSalesDocket', 'msg' => $msg ));
+        }
+
+        public function holdTransaction($invoiceNo)
+        {
+            # code...
+            global $registry;
+
+            # hold all transactions with this invoice no
+            $registry->get('db')->update('salesDocket', array('onHold' => 1), array('transId' => $invoiceNo));
+
+            # split invoiceNo to get the digit
+            $invoice = explode('-', $invoiceNo);
+
+
+            # update last purchase No
+            //$registry->get('db')->update('appCache', array('lastInvioceNo' => $invoice[1]), array('id' => 1));
+
+            $msg['data'] = array(
+                'invoiceNo' => (int)$invoice[1] + 1
+            );
+
+            # store invioce no in session
+            //$session->write('currentInvoiceNo', 'INV-'. (int)$invoice[1] + 1);
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'holdTransaction', 'msg' => $msg ));
+
+        }
+
+        public function recallTransaction($invoiceNo)
+        {
+            # code...
+            global $registry;
+
+            # fetch all sales with this invoice No
+            $msg[ 'docket' ] = $registry->get('db')->query('select * from salesDocket where transId = :invoiceNo',array('invoiceNo' => $invoiceNo), true);
+
+            # split invoiceNo to get the digit
+            $invoice = explode('-', $invoiceNo);
+
+            $msg['transId'] = (int)$invoice[1];
+
+            # recall all transactions with this invoice no
+            $registry->get('db')->update('salesDocket', array('onHold' => 0), array('transId' => $invoiceNo));
+
+            $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showSalesDocket', 'msg' => $msg ));
+
+
+        }
+
+
 
 
         # end of class

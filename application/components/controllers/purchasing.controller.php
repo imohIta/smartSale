@@ -4,7 +4,7 @@
 
     class PurchasingController extends BaseController{
 
-        protected $_urlAllowedMthds = array('render','addNew', 'summary', 'addTemp',  'deleteDocketItem', 'editDocketItem', 'clearDocket', 'addItemsToStock', 'fetchPrevious', 'fetchPreviousDetails', 'summary');
+        protected $_urlAllowedMthds = array('render','addNew', 'summary', 'addTemp',  'deleteDocketItem', 'editDocketItem', 'clearDocket', 'addItemsToStock', 'fetchPrevious', 'fetchPreviousDetails', 'summary', 'fetchDocket');
 
 
         public function render(){
@@ -81,6 +81,12 @@
             $this->_model->fetchPreviousDetails($registry->get('router')->getParam(0)[0]);
         }
 
+        public function fetchDocket()
+        {
+            # code...
+            global $registry;
+            $this->_model->fetchDocket();
+        }
 
 
     }

@@ -110,7 +110,7 @@ class SalesDatabase extends Db{
 	}
 
 	public function fetchDocket($staffId, $currentInvioceNo){
-		$query = 'select * from salesDocket where staffId = :staffId and transId = :transId';
+		$query = 'select * from salesDocket where staffId = :staffId and transId = :transId and onHold = 0';
 		return parent::query($query, array('staffId' => $staffId, 'transId' => $currentInvioceNo), true);
 	}
 
@@ -160,6 +160,13 @@ class SalesDatabase extends Db{
 	public function deleteDocketItem($docketItemId){
 		parent::delete('salesDocket', array('id' => $docketItemId));
 		return $this;
+	}
+
+	public function countTransactionsOnHoldForUser($userId)
+	{
+		# code...
+		$response = parent::bindFetch('select count(*) as count from salesDocket where onHold = 1 and staffId = :userId', array('userId' => $userId), array('count'));
+		return (is_null($response) || false === $response ) ? 0 : $response['count'];
 	}
 
 

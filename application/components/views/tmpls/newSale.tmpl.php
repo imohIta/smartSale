@@ -23,6 +23,7 @@
 
     # check if any item is currently in sales docket
     $response = $registry->get('db')->query('select * from salesDocket where onHold = 1 order by id desc limit 1');
+    //echo $response->transId; die;
     if(false === $response){
 
         # fetch next purchase no

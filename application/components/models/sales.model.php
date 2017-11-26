@@ -47,6 +47,8 @@
 
             }
 
+            //var_dump($sanitized['transId']); die;
+
             # check if transId is sent from UI
             if($sanitized['transId'] == ''){
                 $transId = $registry->get('db')->bindFetch('select lastInvioceNo as no from appCache where id = :id', array('id' => 1), array('no'))['no'];

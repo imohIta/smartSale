@@ -14,7 +14,7 @@ $session->write('hasTable', null);
 $thisUser = unserialize($session->read('thisUser'));
 
 # check user privilege
-if(!in_array($thisUser->get('activeAcct'), array(2,3,4))){
+if(!in_array($thisUser->get('privilege'), array(2,3,5))){
     $registry->get('uri')->redirect();
 }
 

@@ -1,4 +1,5 @@
-window.baseUri = 'http://localhost:8888/smartSale-v2/public';
+//window.baseUri = 'http://localhost:8888/smartSale-v2/public';
+window.baseUri = 'http://smartSale.prelizzperfumery.com/public';
 var xhr = new XMLHttpRequest();
 var searchXhr = new XMLHttpRequest();
 
@@ -134,8 +135,18 @@ function formatNumber(number)
 	    return x1;
 	}else{ return ''; }
 }
+//setTimeout(function(){
+//    alert('checking');
+// var uri = baseuri + '/admin/setShiftTimes';
+// xhr.open('GET', uri, true);
+//     xhr.onload = function(e){
+//         if(xhr.status == 200){
+//             console.log('Shift Times Set');
+//         }
+//     };
+// xhr.send();
 
-
+//}, 1000);
 /********
  * My Custom Functions
  */

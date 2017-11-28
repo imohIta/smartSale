@@ -97,7 +97,7 @@ class StockItem extends FuniObject
 
 		$newQty = $this->_qtyInStock - $qty;
 		$this->_qtyInStock = $newQty;
-		$registry->get('stockDb')->updateQty($newQty, $this->_id);
+		$registry->get('stockDb')->updateQty($newQty, $this->_codeNo);
 	}
 
 	public function updateCostPrice($price)

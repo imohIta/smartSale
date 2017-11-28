@@ -144,7 +144,19 @@
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
 
-            Sales::clearDocket($transId);
+            # fetch Docket by transId
+            $docketItems = Sales::fetchDocket($thisUser->get('id'), $transId);
+            foreach ($docketItems as $item) {
+                # code...
+
+                $stockItem = new StockItem($registry->get('stockDb')->fetchStockByCodeNo($item->codeNo));
+                # increase item's qty in stock
+                $stockItem->increaseQty($item->qty);
+
+                StockItem::deleteItemFromDocket('salesDocket', $item->id);
+
+            }
+
 
         }
 

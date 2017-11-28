@@ -32,7 +32,8 @@
 
         <div>
             <h3 style="font-size:20pt"><strong>Prelizz </strong><small>Perfumery.</small></h3>
-            <p style="font-size:18pt;line-height: 0.2em; text-align: center;"><strong>Plot 107, Marian Road Calabar,</strong><p>
+            <p style="font-size:18pt;line-height: 0.2em; text-align: center;"><strong>Calabar Discount Mall</strong><p>
+            <p style="font-size:18pt;line-height: 0.2em; text-align: center;"><strong>Plot 74, Marian Road, Opp Glo office</strong><p>
             <p style="font-size:18pt;line-height: 0.6em; text-align: center; padding-bottom:20px; border-bottom:1px solid #000;"><strong>Cross River State</strong></p>
 
             <div style="float: left; width:50%; padding:0; margin:0">
@@ -46,7 +47,7 @@
             <?php if($receiptData['customerName'] != ''){ ?>
 
                 <div style="float: left; width:50%; padding:0; margin:0">
-                    <p style="text-align:left;"><strong>Cust. Name :</strong> <?php echo $receiptData['customerName']; ?></p>
+                    <p style="text-align:left;"><strong>Cust. Name :</strong> <?php echo ucwords($receiptData['customerName']); ?></p>
                 </div>
 
                 <div style="float: left; width:50%; padding:0; margin:0">
@@ -109,7 +110,10 @@
 
         </div>
 
-        <br /><hr />
+
+        <p style="line-height:0.2em">No refunds or exchange of perfume after sale<p>
+
+            <hr />
 
         <p style="line-height:0.2em">SmartSale<p>
         <p style="line-height:0.2em"><small>...Make sales with ease</small></p>

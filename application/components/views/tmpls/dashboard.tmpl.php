@@ -212,6 +212,7 @@ function sivamtime() {
 }
 window.onload = sivamtime;
 
+<?php if(in_array($thisUser->get('activeAcct'), array(2,3))){ ?>
 
 $(function () {
     var chart = new CanvasJS.Chart("salesChartContainer", {
@@ -253,7 +254,7 @@ var chart2 = new CanvasJS.Chart("expensesChartContainer",
 chart2.render();
 
 
-
+<?php } ?>
 
 
 
@@ -263,7 +264,8 @@ chart2.render();
     $registry->get('includer')->render('footer', array('js' => array(
                                 'bundles/libscripts.bundle.js',
                                 'bundles/vendorscripts.bundle.js',
-                                'js/main.js'
+                                'js/main.js',
+                                'js/ctrl.js'
                                 // 'js/canvasjs.min.js'
                             )));
 

@@ -252,13 +252,6 @@ class Sales extends FuniObject
 		return $registry->get('salesDb')->fetchDocket($userId, $currentInvioceNo);
 	}
 
-	public static function clearDocket($transId)
-	{
-		# code...
-		global $registry;
-
-		$registry->get('salesDb')->clearDocket($transId);
-	}
 
 	public static function deleteFromDocket($docketId)
 	{

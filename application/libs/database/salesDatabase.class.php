@@ -147,10 +147,6 @@ class SalesDatabase extends Db{
 		));
 	}
 
-	public function clearDocket($transId){
-		parent::delete('salesDocket', array('transId' => $transId));
-		return $this;
-	}
 
 	public function fetchDocketItem($docketId){
 		$query = 'select * from salesDocket where id = :id';

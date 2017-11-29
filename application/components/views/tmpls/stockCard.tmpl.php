@@ -153,7 +153,7 @@
 
                                             <?php
                                                 # fetch all perfumeBrands
-                                                $perfumeBrands = $registry->get('db')->query('select * from perfumeBrands', array(), true);
+                                                $perfumeBrands = $registry->get('db')->query('select * from perfumebrands', array(), true);
                                                 foreach ($perfumeBrands as $brand) {
                                                     # code...
                                              ?>

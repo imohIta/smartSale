@@ -51,7 +51,7 @@
 
             # check if transId is sent from UI
             if($sanitized['transId'] == ''){
-                $transId = $registry->get('db')->bindFetch('select lastInvioceNo as no from appCache where id = :id', array('id' => 1), array('no'))['no'];
+                $transId = $registry->get('db')->bindFetch('select lastInvioceNo as no from appcache where id = :id', array('id' => 1), array('no'))['no'];
                 $transId = (int)transId + 1;
                 $sanitized['transId'] = 'INV-' . $transId;
             }
@@ -153,7 +153,7 @@
                 # increase item's qty in stock
                 $stockItem->increaseQty($item->qty);
 
-                StockItem::deleteItemFromDocket('salesDocket', $item->id);
+                StockItem::deleteItemFromDocket('salesdocket', $item->id);
 
             }
 
@@ -197,7 +197,7 @@
             # increase item's qty in stock
             $stockItem->increaseQty($docketItem->qty);
 
-            StockItem::deleteItemFromDocket('salesDocket', $docketId);
+            StockItem::deleteItemFromDocket('salesdocket', $docketId);
 
             # fetch current Docket
             $msg = array();
@@ -292,7 +292,7 @@
             }
 
             # update last purchase No
-            $registry->get('db')->update('appCache', array('lastInvioceNo' => $invoiceNo), array('id' => 1));
+            $registry->get('db')->update('appcache', array('lastInvioceNo' => $invoiceNo), array('id' => 1));
 
 
             $this->execute(array('action'=>'display', 'tmpl' => '', 'widget' => 'showSaleReceipt', 'msg' => $msg));
@@ -353,7 +353,7 @@
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
 
-            $msg['transactionsOnHold'] = $registry->get('db')->query('select * from salesDocket where staffId = :userId and onHold = :onHold group by transId', array('userId' => $thisUser->get('id'), 'onHold' => 1), true);
+            $msg['transactionsOnHold'] = $registry->get('db')->query('select * from salesdocket where staffId = :userId and onHold = :onHold group by transId', array('userId' => $thisUser->get('id'), 'onHold' => 1), true);
 
             $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'transactionsOnHold', 'msg' => $msg ));
         }
@@ -418,14 +418,14 @@
             global $registry;
 
             # hold all transactions with this invoice no
-            $registry->get('db')->update('salesDocket', array('onHold' => 1), array('transId' => $invoiceNo));
+            $registry->get('db')->update('salesdocket', array('onHold' => 1), array('transId' => $invoiceNo));
 
             # split invoiceNo to get the digit
             $invoice = explode('-', $invoiceNo);
 
 
             # update last purchase No
-            //$registry->get('db')->update('appCache', array('lastInvioceNo' => $invoice[1]), array('id' => 1));
+            //$registry->get('db')->update('appcache', array('lastInvioceNo' => $invoice[1]), array('id' => 1));
 
             $msg['data'] = array(
                 'invoiceNo' => (int)$invoice[1] + 1
@@ -444,7 +444,7 @@
             global $registry;
 
             # fetch all sales with this invoice No
-            $msg[ 'docket' ] = $registry->get('db')->query('select * from salesDocket where transId = :invoiceNo',array('invoiceNo' => $invoiceNo), true);
+            $msg[ 'docket' ] = $registry->get('db')->query('select * from salesdocket where transId = :invoiceNo',array('invoiceNo' => $invoiceNo), true);
 
             # split invoiceNo to get the digit
             $invoice = explode('-', $invoiceNo);
@@ -452,7 +452,7 @@
             $msg['transId'] = (int)$invoice[1];
 
             # recall all transactions with this invoice no
-            $registry->get('db')->update('salesDocket', array('onHold' => 0), array('transId' => $invoiceNo));
+            $registry->get('db')->update('salesdocket', array('onHold' => 0), array('transId' => $invoiceNo));
 
             $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'showSalesDocket', 'msg' => $msg ));
 

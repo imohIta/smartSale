@@ -46,21 +46,6 @@
 
 </div>
 
-<script>
-    // repeat action after every 6 hrs
-    setTimeout(function(){
-        alert('checking');
-    // var uri = baseuri + '/admin/setShiftTimes';
-    // xhr.open('GET', uri, true);
-    //     xhr.onload = function(e){
-    //         if(xhr.status == 200){
-    //             console.log('Shift Times Set');
-    //         }
-    //     };
-    // xhr.send();
-
-    }, 1000 * 60 * 60 );
-</script>
 
 </body>
 

@@ -1,5 +1,5 @@
-//window.baseUri = 'http://localhost:8888/smartSale-v2/public';
-window.baseUri = 'http://smartSale.prelizzperfumery.com/public';
+
+window.baseUri = getInnerHtml('baseUriHolder');
 var xhr = new XMLHttpRequest();
 var searchXhr = new XMLHttpRequest();
 
@@ -29,6 +29,10 @@ function getSelectValue(div){
 }
 
 function getElement(div){
+    return document.getElementById(div);
+}
+
+function getDiv(div){
     return document.getElementById(div);
 }
 
@@ -135,18 +139,24 @@ function formatNumber(number)
 	    return x1;
 	}else{ return ''; }
 }
-//setTimeout(function(){
-//    alert('checking');
-// var uri = baseuri + '/admin/setShiftTimes';
-// xhr.open('GET', uri, true);
-//     xhr.onload = function(e){
-//         if(xhr.status == 200){
-//             console.log('Shift Times Set');
-//         }
-//     };
-// xhr.send();
 
-//}, 1000);
+function sync(){
+   showDiv('cover');
+    var uri = window.baseUri + '/admin/sync';
+    xhr.open('GET', uri, true);
+        xhr.onload = function(e){
+            if(xhr.status == 200){
+                console.log('Sync successfull');
+                hideDiv('cover');
+                setTimeout(sync, 1000 * 60 * 15);
+            }
+        };
+    xhr.send();
+
+}
+
+setTimeout(sync, 1000 * 60 * 15);
+
 /********
  * My Custom Functions
  */

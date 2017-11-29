@@ -1,6 +1,6 @@
 <?php
 /**
-*
+* pass-iAmLegend-Key
 *
 */
 defined('ACCESS') || Error::exitApp();
@@ -20,104 +20,103 @@ class AdminModel extends BaseModel{
 		# SYz@A+min0_0
 	}
 
-	public function resetApp(Array $data)
+	public function resetApp($passKey, $resetType = 1)
 	{
 		# code...
 		global $registry;
 
 		$session = $registry->get('session');
 
-		$requiredFields = array('pwd', 'pwd2');
-		# get all form fields into an array...
-		$formFields = array();
-		foreach ($data as $key => $value) {
-			# code...
-			$formFields[] = $key;
-		}
-
-		$checkReq = json_decode($registry->get('form')->checkRequiredFields($requiredFields));
-
-		#if some required fields where not filled
-		if($checkReq->status == 'error'){
-			$this->execute(array('action'=>'display', 'tmpl' => 'resetApp', 'widget' => 'error', 'msg' => $checkReq->msg));
-		}
-
-		#sanitize each of the fields & append to sanitized array
-		$sanitized = array();
-		foreach ($formFields as $key) {
-			# code...
-			$$key = $registry->get('form')->sanitize($_POST[$key], 'string');
-
-			$sanitized[$key] = $$key;
-
-		}
-
-		if(strtolower($sanitized['pwd']) != strtolower($sanitized['pwd2'])){
-			# if password and confirm password r not the same
-			$this->execute(array('action'=>'display', 'tmpl' => 'resetApp', 'widget' => 'error', 'msg' => 'Reset Password & Confirm Reset Password must be the Same'));
-
-		}
-
-
-		# check if pwd matches reset pwd
-		//if(!$registry->get('authenticator')->verifyPassword2($sanitized['pwd'], $this->resetPwd)){
-		if($sanitized['pwd'] != $this->resetPwd){
-			$this->execute(array('action'=>'display', 'tmpl' => 'resetApp', 'widget' => 'error', 'msg' => 'Sorry Dude...You cant do this...Your password was incorrect'));
-
+		$passKey = filter_var($passKey, FILTER_SANITIZE_STRING);
+		if(Authenticator::simpleCrypt($passKey) != 'c2hIT21neWRiektCZTRCaEFjd1ZJZz09'){
+			echo '<p style="font-size:16px; color:red; text-align:center; margin-top:20px">You do not have permission to carry out ths operation</p>';
 		}else{
 
-			$truncateTbls = array('appReservations', 'badRooms', 'bankDeposits', 'billPayers', 'cashierCollections', 'chairmanXpenses', 'closingStock', 'creditPayments', 'credits', 'deptCreditPayments', 'deptCredits', 'guestActivityArchives', 'guestRegister', 'guestBalances', 'guestBills', 'guestCreditPayments', 'guestPayments', 'guestCredits', 'guestRefunds', 'impressAcct', 'impressCategories', 'impressExpenditures', 'impressPayIns', 'impressTrend', 'notifications', 'requisitions', 'reservationPayments', 'sales', 'staffCreditPayments', 'staffCredits', 'stockItemRemovals', 'stockPurchases', 'transactionReversals', 'transactions', 'webReservations');
+			echo '<p style="color:green; font-size:16px; text-align:center; margin-top:20px">App Reset in Progress, Please wait...</p>';
 
-			$updateTables = array('house_keepingStk', 'kitchenStk', 'main_barStk', 'pool_barStk', 'resturantStk', 'resturant_drinksStk', 'store' );
+			$truncateTbls1 = array('baditems', 'currentstock', 'customerinfo', 'expenses', 'expensescategories', 'incomingcash',  'purchasedocket', 'purchases', 'sales', 'salesdocket', 'staffinfo',  'subcharges', 'transactions');
 
+			$truncateTbls2 = array();
+
+			if($resetType == 2){
+				$truncateTbls2('stockcard', 'stockcategories', 'perfumebrands', 'suppliers');
+			}
+
+			$truncateTbls = array_merge($truncateTbls1, $truncateTbls2);
+
+			# trucate tables
 			foreach ($truncateTbls as $key => $value) {
 				# code...
 				$registry->get('db')->truncateTbl($value);
 			}
 
-			foreach ($updateTables as $key => $value) {
-				# code...
-				$registry->get('db')->updateTbl($value);
-			}
+			# reset app cache
+			$registry->get('db')->update('appCache', array('lastPurchaseNo' => '0', 'lastInvioceNo' => 0), array('id' => 1));
 
-			$this->execute(array('action'=>'display', 'tmpl' => 'resetApp', 'widget' => 'success', 'msg' => 'App Reset successfull'));
+			# reset lastPurchaseSynId
+			$registry->get('db')->update('lastpurchaseidsync', array('id' => '0'));
+
+			# reset user table
+			$registry->get('db')->query('delete from users where id > :id', array('id' => 1));
+
+
+			echo '<p style="color:green; font-size:16px; margin-top:40px; text-align:center">App Reset in Progress, Please wait...</p>';
+
+
 		}
 
 
 	}
 
-	public function flushTable(Array $data)
+
+	public function runSynManager()
 	{
-		# code...
-		global $registry;
 
-		$pwd = filter_var($data['pwd'], FILTER_SANITIZE_STRING);
-		$pwd2 = filter_var($data['pwd2'], FILTER_SANITIZE_STRING);
+		$host = 'localhost';
+	    $dbName = 'smartSale-v2';
+	    $dbUser = 'root';
+	    $dbPwd = 'root';
+	    $dsn = "mysql:host=" . $host . ";dbname=" . $dbName . ";charset=utf8";
 
-		if($pwd != $pwd2){
-			$this->execute(array('action'=>'display', 'tmpl' => 'flushTable', 'widget' => 'error', 'msg' => 'Reset Password & Confirm Reset Password must be the Same'));
-		}
+	    $localConnection = new PDO($dsn, $dbUser, $dbPwd);
+	    $localConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    $localConnection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
-		# check if pwd matches reset pwd
-		if(!$registry->get('authenticator')->verifyPassword2($pwd, $this->resetHash)){
-			$this->execute(array('action'=>'display', 'tmpl' => 'flushTable', 'widget' => 'error', 'msg' => 'Sorry Dude...You cant do this...Your password was incorrect'));
-		}else{
-
-		foreach ($data['tables'] as $key => $value) {
-			# code...
-			$tbl = filter_var($value, FILTER_SANITIZE_STRING);
-			$registry->get('db')->truncateTbl($tbl);
-		}
-
-		$this->execute(array('action'=>'display', 'tmpl' => 'flushTable', 'widget' => 'success', 'msg' => 'App Reset successfull'));
-	   }
-	}
+		# get last purchase Syn Id from Local Db
+	    $st = $localConnection->query('select * from lastpurchaseidsync');
+	    $st->execute();
+	    $response = $st->fetch();
+	    $lastPurchaseSynId =  $response->id;
 
 
-	public function setShiftTimes()
-	{
-		# try to update shift times
-		setShiftTimes();
+
+	    # fetch all purchases starting from last purchase Syn ID from Local DB
+	    $st = $localConnection->query('select * from purchases limit 100 offset ' . $lastPurchaseSynId);
+	    $result = $st->execute() ? $st->fetchAll() : array();
+
+
+	    if(count($result) > 0){
+	        $counter = 1;
+	        foreach ($result as $purchase) {
+
+	            # do current stock reconciliation
+
+	            $localConnection->exec('update currentstock set qty = qty + ' . $purchase->qty . ' where codeNo = ' . $purchase->codeNo);
+
+	            # if resultset is the last record fetched
+	            if($counter == count($result)){
+
+	                # update last purchase Sync Id
+	                $localConnection->exec('update lastpurchaseidsync set id = ' . $purchase->id);
+	            }
+
+	            $counter++;
+	        }
+
+
+	    }
+
+	    echo json_encode(array('status' => true));
 	}
 
 

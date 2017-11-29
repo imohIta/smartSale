@@ -27,7 +27,7 @@ class Staff extends FuniObject
 		if(!is_object($obj)){
 
 			# fetch staff details
-			$obj = $registry->get('db')->query('select * from staffInfo where id = :id', array('id' => $obj));
+			$obj = $registry->get('db')->query('select * from staffinfo where id = :id', array('id' => $obj));
 
 		}
 
@@ -104,7 +104,7 @@ class Staff extends FuniObject
     {
         # code...
         global $registry;
-        return $registry->get('db')->query('select * from staffInfo', array(), true);
+        return $registry->get('db')->query('select * from staffinfo', array(), true);
     }
 
 
@@ -126,7 +126,7 @@ class Staff extends FuniObject
 	{
 		# code...
 		global $registry;
-		$result = $registry->get('db')->bindFetch('select sum(salary) as total from staffInfo', array(), array('total'));
+		$result = $registry->get('db')->bindFetch('select sum(salary) as total from staffinfo', array(), array('total'));
 		return $result['total'];
 	}
 

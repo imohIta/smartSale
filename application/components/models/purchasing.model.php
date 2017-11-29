@@ -69,7 +69,7 @@
 
             # check if item has already been added to this docket
             if ( $registry->get('stockDb')->checkIfItemInDocket(array(
-                'docket' => 'purchaseDocket',
+                'docket' => 'purchasedocket',
                 'date'    => date('Y-m-d'),
                 'codeNo'  => $sanitized[ 'codeNo' ],
                 'staffId' => $thisUser->get('id')
@@ -78,14 +78,14 @@
 
                     # get current qty of item in Docket
                     $response = $registry->get('stockDb')->getItemQtyInDocket(array(
-                        'docket' => 'purchaseDocket',
+                        'docket' => 'purchasedocket',
                         'codeNo'  => $sanitized[ 'codeNo' ],
                         'staffId' => $thisUser->get('id')
                     ));
 
                     # update item in docket
                     $registry->get('stockDb')->updateDocketItem(array(
-                        'docket' => 'purchaseDocket',
+                        'docket' => 'purchasedocket',
                         'codeNo'  => $sanitized[ 'codeNo' ],
                         'date'    => date('Y-m-d'),
                         'name' => ucwords($sanitized['itemName']),
@@ -107,7 +107,7 @@
 
                 # add item to docket
                 $registry->get('stockDb')->addToDocket(array(
-                    'docket' => 'purchaseDocket',
+                    'docket' => 'purchasedocket',
                     'date'    => date('Y-m-d'),
                     'name'    => ucwords($sanitized[ 'itemName' ]),
                     'codeNo'  => $sanitized[ 'codeNo' ],
@@ -133,7 +133,7 @@
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
 
-            StockItem::deleteItemFromDocket('purchaseDocket', $docketId);
+            StockItem::deleteItemFromDocket('purchasedocket', $docketId);
 
             # fetch current Docket
             $msg = array();
@@ -150,7 +150,7 @@
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
 
-            StockItem::clearDocket('purchaseDocket', $thisUser->get('id'));
+            StockItem::clearDocket('purchasedocket', $thisUser->get('id'));
 
 
         }
@@ -168,7 +168,7 @@
             $purchaseNo = filter_var($data['purchaseNo'], FILTER_SANITIZE_STRING);
 
             # fetch all docket items
-            $docketItems = StockItem::fetchPurchaseDocket(date('Y-m-d'), $thisUser->get('id'));
+            $docketItems = StockItem::fetchPurchasedocket(date('Y-m-d'), $thisUser->get('id'));
 
             if(count($docketItems) > 0){
 
@@ -188,7 +188,7 @@
                     # update qty of StockItem
                     $stockItem->increaseQty($docketItem->qty);
 
-                    
+
                     # insert item into stock purchases table
                     StockItem::insertIntoPurchases(array(
                        'date' => changeDateFormat($date, 'd-m-Y', 'Y-m-d'),
@@ -203,17 +203,17 @@
 
 
                     # delete item from docket
-                    StockItem::deleteItemFromDocket('purchaseDocket', $docketItem->id);
+                    StockItem::deleteItemFromDocket('purchasedocket', $docketItem->id);
 
                 }
 
 
                 # get last purchase No
-                $lastPurchaseNo = $registry->get('db')->bindFetch('select lastPurchaseNo as no from appCache where id= :id',array('id' => 1), array('no'));
+                $lastPurchaseNo = $registry->get('db')->bindFetch('select lastPurchaseNo as no from appcache where id= :id',array('id' => 1), array('no'));
 
 
                 # update last purchase No
-                $registry->get('db')->update('appCache', array('lastPurchaseNo' => $lastPurchaseNo['no'] + 1), array('id' => 1));
+                $registry->get('db')->update('appcache', array('lastPurchaseNo' => $lastPurchaseNo['no'] + 1), array('id' => 1));
                 $msg = array('docket' => array());
 
             }

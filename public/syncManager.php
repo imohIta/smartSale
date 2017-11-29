@@ -43,7 +43,7 @@
     // }
 
     # get last purchase Syn Id from Local Db
-    $st = $localConnection->query('select * from lastPurchaseIdSync');
+    $st = $localConnection->query('select * from lastpurchaseidsync');
     $st->execute();
     $response = $st->fetch();
     $lastPurchaseSynId =  $response->id;
@@ -61,13 +61,13 @@
 
             # do current stock reconciliation
 
-            $localConnection->exec('update currentStock set qty = qty + ' . $purchase->qty . ' where codeNo = ' . $purchase->codeNo);
+            $localConnection->exec('update currentstock set qty = qty + ' . $purchase->qty . ' where codeNo = ' . $purchase->codeNo);
 
             # if resultset is the last record fetched
             if($counter == count($result)){
 
                 # update last purchase Sync Id
-                $localConnection->exec('update lastPurchaseIdSync set id = ' . $purchase->id);
+                $localConnection->exec('update lastpurchaseidsync set id = ' . $purchase->id);
             }
 
             $counter++;

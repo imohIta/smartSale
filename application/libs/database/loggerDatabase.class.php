@@ -9,7 +9,7 @@ use core\libs\Database as Db;
 defined('ACCESS') || AppError::exitApp();
 
 class LoggerDatabase extends Db{
-	
+
 	public function logNotification(Array $data)
 	{
 		$data['targetStaffId'] = isset($data['targetStaffId']) ? $data['targetStaffId'] : 0;
@@ -29,7 +29,7 @@ class LoggerDatabase extends Db{
 	}
 
 	public function logUserLogin($data){
-		parent::insert('loggedInUsers', array('date' => $data['date'], 'time' => $data['time'], 'appUserId' => $data['appUserId']));
+		parent::insert('loggedinusers', array('date' => $data['date'], 'time' => $data['time'], 'appUserId' => $data['appUserId']));
 	}
 
 	public function logPriceChange(Array $data){
@@ -47,5 +47,5 @@ class LoggerDatabase extends Db{
 	}
 
 
-#end of class	
+#end of class
 }

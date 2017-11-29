@@ -22,12 +22,12 @@
 
 
     # check if any item is currently in sales docket
-    $response = $registry->get('db')->query('select * from salesDocket where onHold = 1 order by id desc limit 1');
+    $response = $registry->get('db')->query('select * from salesdocket where onHold = 1 order by id desc limit 1');
     //echo $response->transId; die;
     if(false === $response){
 
         # fetch next purchase no
-        $result = $registry->get('db')->bindFetch('select lastInvioceNo as no from appCache where id = :id', array('id' => 1), array('no'));
+        $result = $registry->get('db')->bindFetch('select lastInvioceNo as no from appcache where id = :id', array('id' => 1), array('no'));
         $invioceNo = (int)$result['no'] + 1;
 
     }else{
@@ -313,13 +313,13 @@
                                 <select class="form-control pull-left" id="payType" style="width:130px; margin-top:18px">
                                     <option value="1">Cash</option>
                                     <option value="2">POS</option>
-                                    <option value="3">Bank Transfer</option>
+                                    <!-- <option value="3">Bank Transfer</option> -->
                                 </select>
 
                                 <button type="button" id="holdAndRecallBtn" class="btn btn-raised btn-warning" style="margin-left:45px; padding:10px"><i class="fa fa-repeat"></i> HOLD/RECALL</button>
 
 
-                                <button type="button" id="emailInvioceBtn" class="btn btn-raised btn-info" style="margin-left:20px; padding:10px"><i class="fa fa-file-text"></i> EMAIL INVIOCE</button>
+                                <!-- <button type="button" id="emailInvioceBtn" class="btn btn-raised btn-info" style="margin-left:20px; padding:10px"><i class="fa fa-file-text"></i> EMAIL INVIOCE</button> -->
 
 
                                 <button type="button" id="printInvioceBtn" class="btn btn-raised btn-success" style="margin-left:20px; padding:10px"><i class="fa fa-print"></i> PRINT INVIOCE</button>

@@ -47,7 +47,7 @@ class StaffModel extends BaseModel{
 
 		}
 
-		$registry->get('db')->insert('staffInfo', array(
+		$registry->get('db')->insert('staffinfo', array(
 			'name' => ucwords($sanitized['name']),
 			'phone' => $sanitized['phone'],
 			'gender' => $sanitized['gender'],
@@ -93,7 +93,7 @@ class StaffModel extends BaseModel{
 
 		}
 
-		$registry->get('db')->update('staffInfo', array(
+		$registry->get('db')->update('staffinfo', array(
 			'name' => ucwords($sanitized['name']),
 			'phone' => $sanitized['phone'],
 			'gender' => $sanitized['gender'],

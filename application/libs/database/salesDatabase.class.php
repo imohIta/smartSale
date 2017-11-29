@@ -110,32 +110,32 @@ class SalesDatabase extends Db{
 	}
 
 	public function fetchDocket($staffId, $currentInvioceNo){
-		$query = 'select * from salesDocket where staffId = :staffId and transId = :transId and onHold = 0';
+		$query = 'select * from salesdocket where staffId = :staffId and transId = :transId and onHold = 0';
 		return parent::query($query, array('staffId' => $staffId, 'transId' => $currentInvioceNo), true);
 	}
 
 	public function checkIfItemInDocket(Array $data){
-		$query = 'select id from salesDocket where codeNo = :codeNo and transId = :transId';
+		$query = 'select id from salesdocket where codeNo = :codeNo and transId = :transId';
 		$response = parent::bindFetch($query, array('codeNo' => $data['codeNo'], 'transId' => $data['transId']), array
 		('id'));
 		return $response['id'] > 0 ? true : false;
 	}
 
 	public function getItemInDocket(Array $data){
-		$query = 'select * from salesDocket where codeNo = :codeNo and transId = :transId';
+		$query = 'select * from salesdocket where codeNo = :codeNo and transId = :transId';
 		return parent::query($query, array('codeNo' => $data['codeNo'], 'transId' => $data['transId']));
 	}
 
 	public function updateDocketItem(Array $data){
 
-		parent::update('salesDocket', array( 'qty' => $data[ 'qty' ], 'discount' => $data['discount'], 'total' => $data['total'] ), array( 'codeNo' => $data[ 'codeNo' ], 'transId' => $data[ 'transId' ] ));
+		parent::update('salesdocket', array( 'qty' => $data[ 'qty' ], 'discount' => $data['discount'], 'total' => $data['total'] ), array( 'codeNo' => $data[ 'codeNo' ], 'transId' => $data[ 'transId' ] ));
 
 		return $this;
 	}
 
 	public function addToDocket (Array $data){
 
-		return parent::insert('salesDocket', array(
+		return parent::insert('salesdocket', array(
 				'date'     => $data[ 'date' ],
 				'transId' => $data[ 'transId' ],
 				'codeNo'   => $data[ 'codeNo' ],
@@ -149,19 +149,19 @@ class SalesDatabase extends Db{
 
 
 	public function fetchDocketItem($docketId){
-		$query = 'select * from salesDocket where id = :id';
+		$query = 'select * from salesdocket where id = :id';
 		return $response = parent::query($query, array('id' => $docketId));
 	}
 
 	public function deleteDocketItem($docketItemId){
-		parent::delete('salesDocket', array('id' => $docketItemId));
+		parent::delete('salesdocket', array('id' => $docketItemId));
 		return $this;
 	}
 
 	public function countTransactionsOnHoldForUser($userId)
 	{
 		# code...
-		$response = parent::bindFetch('select count(*) as count from salesDocket where onHold = 1 and staffId = :userId', array('userId' => $userId), array('count'));
+		$response = parent::bindFetch('select count(*) as count from salesdocket where onHold = 1 and staffId = :userId', array('userId' => $userId), array('count'));
 		return (is_null($response) || false === $response ) ? 0 : $response['count'];
 	}
 

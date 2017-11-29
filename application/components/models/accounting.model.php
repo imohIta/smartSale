@@ -41,7 +41,7 @@
             global $registry;
             $session = $registry->get('session');
             $thisUser = unserialize($session->read('thisUser'));
-            
+
 
             $requiredFields = array('date', 'source', 'amount');
     		# get all form fields into an array...
@@ -70,7 +70,7 @@
     		}
 
 
-            $registry->get('db')->insert('incomingCash', array(
+            $registry->get('db')->insert('incomingcash', array(
                 'date' => $sanitized['date'],
                 'source' => $sanitized['source'],
                 'amount' => $sanitized['amount'],

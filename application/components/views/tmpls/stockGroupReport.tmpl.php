@@ -301,12 +301,12 @@
                                                 # calculate cost of all
 
                                                 # fetch all codeNo
-                                                $result = $registry->get('db')->query('select `codeNo` from `sales` where `codeNo` in ( select `codeNo` from `stockCard` where `groupId` = :group )', array('group' => $group->id), true);
+                                                $result = $registry->get('db')->query('select `codeNo` from `sales` where `codeNo` in ( select `codeNo` from `stockcard` where `groupId` = :group )', array('group' => $group->id), true);
 
                                                 $totalGroupCost = 0;
                                                 foreach ($result as $value) {
                                                     # code...
-                                                    $totalGroupCost += $registry->get('db')->bindFetch('select costPrice from stockCard where codeNo = :codeNo', array('codeNo' => $value->codeNo), array('costPrice'))['costPrice'];
+                                                    $totalGroupCost += $registry->get('db')->bindFetch('select costPrice from stockcard where codeNo = :codeNo', array('codeNo' => $value->codeNo), array('costPrice'))['costPrice'];
                                                 }
 
                                                 $totalCost += $totalGroupCost;

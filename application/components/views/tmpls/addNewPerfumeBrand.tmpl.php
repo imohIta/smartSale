@@ -19,7 +19,7 @@
     }
 
     # fetch perfume brands
-    $perfumeBrands = $registry->get('db')->query('select * from perfumeBrands', array(), true);
+    $perfumeBrands = $registry->get('db')->query('select * from perfumebrands', array(), true);
 
     #include header
     $registry->get('includer')->render('header', array('css' => array(

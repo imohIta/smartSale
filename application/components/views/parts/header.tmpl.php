@@ -5,8 +5,6 @@
   # get loggedIn User user object
   $thisUser = unserialize($session->read('thisUser'));
 
-
-
 ?>
 
 <!doctype html>
@@ -24,11 +22,13 @@
 
 <?php echo $css; ?>
 
-<?php echo $js; ?>
 
+<?php echo $js; ?>
 
 </head>
 <body id="oakleaf" class="main_Wrapper">
+
+    <div style="display:none" id="baseUriHolder"><?php echo $baseUri; ?></div>
 
 <div id="wrap" class="animsition">
     <!-- HEADER Content -->

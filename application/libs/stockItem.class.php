@@ -55,14 +55,14 @@ class StockItem extends FuniObject
 	{
 		# code...
 		global $registry;
-		return $registry->get('db')->bindFetch('select name from stockCategories where id = :id', array('id' => $this->_groupId), array('name'))['name'];
+		return $registry->get('db')->bindFetch('select name from stockcategories where id = :id', array('id' => $this->_groupId), array('name'))['name'];
 	}
 
 	public function getBrand()
 	{
 		# code...
 		global $registry;
-		return $registry->get('db')->bindFetch('select name from perfumeBrands where id = :id', array('id' => $this->_brandId), array('name'))['name'];
+		return $registry->get('db')->bindFetch('select name from perfumebrands where id = :id', array('id' => $this->_brandId), array('name'))['name'];
 	}
 
 	public function updateCard(Array $data){
@@ -105,7 +105,7 @@ class StockItem extends FuniObject
 		# code...
 
 		global $registry;
-		$registry->get('db')->update('stockCard', array('costPrice' => $price), array('id' => $this->get('id')));
+		$registry->get('db')->update('stockcard', array('costPrice' => $price), array('id' => $this->get('id')));
 
 	}
 
@@ -167,7 +167,7 @@ class StockItem extends FuniObject
 		# code...
 		global $registry;
 
-		return $registry->get('db')->query('select * from badItems order by id desc', array(), true);
+		return $registry->get('db')->query('select * from baditems order by id desc', array(), true);
 
 	}
 
@@ -191,7 +191,7 @@ class StockItem extends FuniObject
 
 		# code...
 		global $registry;
-		$result =  $registry->get('db')->bindFetch('select id from stockCard where codeNo = :codeNo', array('codeNo' => $codeNo), array('id'));
+		$result =  $registry->get('db')->bindFetch('select id from stockcard where codeNo = :codeNo', array('codeNo' => $codeNo), array('id'));
 
 		return $result['id'];
 
@@ -201,7 +201,7 @@ class StockItem extends FuniObject
 	{
 		# code...
 		global $registry;
-		return $registry->get('db')->query('select * from stockCategories', array(), true);
+		return $registry->get('db')->query('select * from stockcategories', array(), true);
 
 	}
 
@@ -209,7 +209,7 @@ class StockItem extends FuniObject
 	{
 		# code...
 		global $registry;
-		$query = 'select * from perfumeBrands';
+		$query = 'select * from perfumebrands';
 		if($limit != ''){
 			$query .= ' limit ' . $limit;
 		}
@@ -259,14 +259,14 @@ class StockItem extends FuniObject
 	{
 		# code...
 		global $registry;
-		return $registry->get('db')->query('select * from currentStock where qty <= ' . $reductionBenchmark, array(), true);
+		return $registry->get('db')->query('select * from currentstock where qty <= ' . $reductionBenchmark, array(), true);
 	}
 
 	public static function getBrandName($brandId)
 	{
 		# code...
 		global $registry;
-		return $registry->get('db')->bindFetch('select name from perfumeBrands where id = :id', array('id' => $brandId), array('name'))['name'];
+		return $registry->get('db')->bindFetch('select name from perfumebrands where id = :id', array('id' => $brandId), array('name'))['name'];
 	}
 
 

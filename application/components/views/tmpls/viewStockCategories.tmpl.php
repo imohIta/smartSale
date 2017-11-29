@@ -29,7 +29,7 @@
     $registry->get('includer')->render('sidebar', array());
 
     # fetch all Stock Categories
-    $data = $registry->get('db')->query('select * from stockCategories', array(), true);
+    $data = $registry->get('db')->query('select * from stockcategories', array(), true);
 
 ?>
 

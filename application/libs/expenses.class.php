@@ -46,7 +46,7 @@ class Expenses extends FuniObject
 	{
 		# code...
 		global $registry;
-        $result = $registry->get('db')->bindFetch('select name from expensesCategories where id = :id', array('id' => $this->_categoryId), array('name'));
+        $result = $registry->get('db')->bindFetch('select name from expensescategories where id = :id', array('id' => $this->_categoryId), array('name'));
 		return $result['name'];
 	}
 
@@ -55,7 +55,7 @@ class Expenses extends FuniObject
     {
         # code...
         global $registry;
-        return $registry->get('db')->query('select * from expensesCategories', array(), true);
+        return $registry->get('db')->query('select * from expensescategories', array(), true);
     }
 
     public static function addNew(Array $data)
@@ -76,7 +76,7 @@ class Expenses extends FuniObject
     {
         # code...
         global $registry;
-        $registry->get('db')->insert('expensesCategories', array(
+        $registry->get('db')->insert('expensescategories', array(
             'name' => $data['category']
         ));
 
@@ -138,7 +138,7 @@ class Expenses extends FuniObject
 		$beginDate = $year . '-' . $month . '-01';
 		$endDate = $year . '-' . date('m') . '-';
 		$endDate .= ($month == 2) ? '28' : '31';
-		
+
 		return $registry->get('db')->bindFetch('select sum(amount) as total from expenses where date between :beginDate and :endDate', array('beginDate' => $beginDate, 'endDate' => $endDate), array('total'))['total'];
 
 	}

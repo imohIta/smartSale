@@ -14,7 +14,7 @@ class Database extends Db{
 	public function __construct(array $options)
 	{
 		parent::__construct($options);
-	
+
 	}
 
 	public function getPwdHash($username)
@@ -43,7 +43,7 @@ class Database extends Db{
 
 
 	public function logoutAppUser($appUserId){
-		parent::delete('loggedInUsers', array('appUserId' => $appUserId));
+		parent::delete('loggedinusers', array('appUserId' => $appUserId));
 		return $this;
 	}
 
@@ -54,6 +54,19 @@ class Database extends Db{
 	}
 
 
+	public function truncateTbl($tbl)
+    {
+        # code...
+        $this->_driver->exec('truncate ' . $tbl);
+    }
+
+    public function updateTbl($tbl)
+    {
+        # code...
+        $st = $this->_driver->prepare('update `' . $tbl . '` set `qtyInStock` = 0');
+        return $st->execute() ? true : false;
+
+    }
 
 
 

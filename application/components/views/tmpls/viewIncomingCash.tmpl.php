@@ -24,7 +24,7 @@
     $registry->get('includer')->render('sidebar', array());
 
     # fetch incomig cash
-    $incomingCash = $registry->get('db')->query('select * from incomingCash order by id desc', array(), true);
+    $incomingCash = $registry->get('db')->query('select * from incomingcash order by id desc', array(), true);
 
 ?>
 
@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-8">
                 <section class="boxs ">
-                    
+
                     <div class="boxs-body">
 
                         <?php

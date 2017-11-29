@@ -124,7 +124,7 @@
 
                                     <?php
                                         # fetch next purchase no
-                                        $result = $registry->get('db')->bindFetch('select lastPurchaseNo as no from appCache where id = :id', array('id' => 1), array('no'));
+                                        $result = $registry->get('db')->bindFetch('select lastPurchaseNo as no from appcache where id = :id', array('id' => 1), array('no'));
                                         $purchaseId = (int)$result['no'] + 1;
                                      ?>
 
@@ -145,7 +145,7 @@
                                                      <input type="text" id="date" class="form-control" value="<?php echo changeDateFormat($today); ?>"  style="width:130px; margin-left:12px" >
 
                                                      <input type="hidden" id="dateHidden" value="<?php echo changeDateFormat($today); ?>" />
-                                                     
+
                                                  </td>
                                              </tr>
                                          </table>

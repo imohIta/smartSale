@@ -89,7 +89,7 @@
             $docketId = filter_var($docketId, FILTER_SANITIZE_NUMBER_INT);
 
             # fetch stock item
-            $msg['Item'] = $registry->get('stockDb')->fetchDocketItem('purchaseDocket', $docketId);
+            $msg['Item'] = $registry->get('stockDb')->fetchDocketItem('purchasedocket', $docketId);
 
             $this->execute(array( 'action' => 'display', 'tmpl' => '', 'widget' => 'getDocketItem', 'msg' => $msg ));
         }
@@ -141,7 +141,7 @@
             $stockItem->reduceQty($qty);
 
             # save in bad items table
-            $registry->get('db')->insert('badItems', array(
+            $registry->get('db')->insert('baditems', array(
                 'itemId' => $stockItem->get('id'),
                 'date' => date('Y-m-d'),
                 'time' => time(),
@@ -191,7 +191,7 @@
 
             $name = ucwords(filter_var($data[ 'name' ], FILTER_SANITIZE_STRING));
 
-            $registry->get('db')->insert('stockCategories', array(
+            $registry->get('db')->insert('stockcategories', array(
                 'name' => $name
             ));
 
@@ -207,7 +207,7 @@
 
             $categoryId = filter_var($categoryId, FILTER_SANITIZE_STRING);
 
-            $registry->get('db')->delete('stockCategories', array(
+            $registry->get('db')->delete('stockcategories', array(
                 'id' => $categoryId
             ));
 
@@ -286,7 +286,7 @@
             global $registry;
             $name = ucwords(filter_var($data['name'], FILTER_SANITIZE_STRING));
 
-            $registry->get('db')->insert('perfumeBrands', array('name' => $name));
+            $registry->get('db')->insert('perfumebrands', array('name' => $name));
 
             $msg = 'Perfume Brand ( ' . $name . ' ) successfully added';
             $this->execute(array('action'=>'display', 'tmpl' => 'addNewPerfumeBrand', 'widget' => 'success', 'msg' =>
@@ -301,7 +301,7 @@
 
             $brandId = filter_var($brandId, FILTER_SANITIZE_STRING);
 
-            $registry->get('db')->delete('perfumeBrands', array(
+            $registry->get('db')->delete('perfumebrands', array(
                 'id' => $brandId
             ));
 

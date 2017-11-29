@@ -155,7 +155,7 @@ function sync(){
 
 }
 
-setTimeout(sync, 1000 * 60 * 15);
+//setTimeout(sync, 1000 * 60 * 15);
 
 /********
  * My Custom Functions
